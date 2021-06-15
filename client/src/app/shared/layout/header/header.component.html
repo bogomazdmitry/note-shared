@@ -1,0 +1,45 @@
+<mat-toolbar class="mb-4" color="primary">
+  <span>
+    <button mat-flat-button color="primary" routerLink="/"> UNotes </button>
+  </span>
+  <span class="toolbar-spacer"></span>
+  <div *ngIf="this.authService.isAuthorize(); else UnAuthorizeBlock">
+    <button
+      mat-flat-button
+      color="primary"
+      routerLink="/user/info"
+    >
+      {{ userName }}
+      <mat-icon aria-hidden="false" aria-label="Account">
+        account_circle
+      </mat-icon>
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="this.authService.signOut()"
+      aria-label="Sign out"
+    >
+      Sign out
+    </button>
+  </div>
+  <ng-template #UnAuthorizeBlock>
+    <button
+      mat-flat-button
+      color="primary"
+      routerLink="/user/signin"
+      [queryParams]="{ backUrl: this.router.url }"
+      aria-label="Sign in"
+    >
+      Sign in
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      routerLink="/user/signup"
+      aria-label="Sign up"
+    >
+      Sign up
+    </button>
+  </ng-template>
+</mat-toolbar>

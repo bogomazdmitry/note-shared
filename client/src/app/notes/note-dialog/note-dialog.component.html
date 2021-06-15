@@ -1,0 +1,38 @@
+<div class="wide-container box">
+  <h1 mat-dialog-title class="d-flex">
+    <mat-form-field class="px-0 w-100">
+      <input matInput [(ngModel)]="this.note.Tittle" />
+    </mat-form-field>
+    <button
+      mat-icon-button
+      cdkDragHandle
+      cdkDrag
+      cdkDragRootElement=".cdk-overlay-pane"
+      class="mx-1 flex-shrink-2 drag-indicator"
+    >
+      <mat-icon>drag_indicator</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      class="mx-1 flex-shrink-2 col-auto"
+      (click)="saveNote()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </h1>
+  <mat-dialog-content class="h-100">
+    <div mat-dialog-content class="h-100">
+      <mat-form-field class="w-100 h-100">
+        <textarea matInput [(ngModel)]="this.note.Text"> </textarea>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <div mat-dialog-actions class="d-flex">
+    <button mat-icon-button (click)="saveNote()">
+      <mat-icon> save_outline </mat-icon>
+    </button>
+    <button mat-icon-button (click)="deleteNote()">
+      <mat-icon> delete_outline </mat-icon>
+    </button>
+  </div>
+</div>

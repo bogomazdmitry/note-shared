@@ -1,0 +1,17 @@
+@import "~bootstrap/scss/bootstrap-grid.scss";
+
+.wide-container {
+  @include make-container(0);
+  width: 80%;
+}
+
+main {
+  width: 100%;
+}
+
+footer {
+  background-color: #645656;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

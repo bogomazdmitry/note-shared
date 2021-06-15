@@ -1,0 +1,13 @@
+<div class="d-flex justify-content-center">
+  <button mat-button style="font-size: medium;" (click)="addNote()">
+    <mat-icon class="mx-1">add</mat-icon>
+    Add new note
+  </button>
+</div>
+<div (domChange)="refreshGrid()" class="grid">
+  <div #notes class="item col p-1" *ngFor="let note of notes">
+    <div class="item-content">
+      <notes-note [deleteNote]="this.deleteNote.bind(this)" [note]="note"></notes-note>
+    </div>
+  </div>
+</div>
