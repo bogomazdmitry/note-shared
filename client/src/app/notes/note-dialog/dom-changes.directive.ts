@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Directive,
   ElementRef,
   EventEmitter,
@@ -9,7 +10,7 @@ import {
 @Directive({
   selector: '[domChange]',
 })
-export class DomChangeDirective implements OnDestroy {
+export class DomChangeDirective implements OnDestroy, AfterViewInit {
   private changes: MutationObserver;
 
   @Output()
@@ -17,7 +18,7 @@ export class DomChangeDirective implements OnDestroy {
 
   constructor(private elementRef: ElementRef) {}
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     const element = this.elementRef.nativeElement;
 
     this.changes = new MutationObserver((mutations: MutationRecord[]) => {
@@ -34,7 +35,7 @@ export class DomChangeDirective implements OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.changes.disconnect();
   }
 }

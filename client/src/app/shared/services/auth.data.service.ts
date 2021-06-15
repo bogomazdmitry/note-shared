@@ -26,9 +26,15 @@ export class AuthDataService extends BaseDataService {
   }
 
   public signUp(signUpModel: SignUpModel): Observable<any> {
-    const subSignUp = this.sendPostRequest(JSON.stringify(signUpModel), actionRoutes.authSignup).pipe(share());
-    subSignUp.subscribe(answer => {
-      const signInModel: SignInModel = {email:  answer.email, password: answer.password};
+    const subSignUp = this.sendPostRequest(
+      JSON.stringify(signUpModel),
+      actionRoutes.authSignup
+    ).pipe(share());
+    subSignUp.subscribe((answer) => {
+      const signInModel: SignInModel = {
+        email: answer.email,
+        password: answer.password,
+      };
       console.log(signInModel);
       this.sigIn(signInModel);
     });
@@ -39,10 +45,10 @@ export class AuthDataService extends BaseDataService {
   public sigIn(signInModel: SignInModel): Observable<any> {
     const param = new URLSearchParams();
     param.set(authTokenRequestNames.grantType, authTokenRequestValues.password);
-    param.set(authTokenRequestNames.clientId,  environment.clientId);
-    param.set(authTokenRequestNames.scope,     authTokenRequestValues.scope);
-    param.set(authTokenRequestNames.username,  signInModel.email);
-    param.set(authTokenRequestNames.password,  signInModel.password);
+    param.set(authTokenRequestNames.clientId, environment.clientId);
+    param.set(authTokenRequestNames.scope, authTokenRequestValues.scope);
+    param.set(authTokenRequestNames.username, signInModel.email);
+    param.set(authTokenRequestNames.password, signInModel.password);
     const sub = this.sendPostRequest(
       `${param.toString()}`,
       actionRoutes.authToken,
@@ -61,14 +67,14 @@ export class AuthDataService extends BaseDataService {
     return sub;
   }
 
-  public checkUniqueUserName(userName: string) {
+  public checkUniqueUserName(userName: string): Observable<any> {
     return this.sendGetRequest(
       { userName },
       actionRoutes.authCheckUniqueUserName
     );
   }
 
-  public checkUniqueEmail(email: string) {
+  public checkUniqueEmail(email: string): Observable<any> {
     return this.sendGetRequest({ email }, actionRoutes.authCheckUniqueEmail);
   }
 }

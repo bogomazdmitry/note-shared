@@ -18,10 +18,10 @@ export class NoteService {
     return this.noteDataService.changeNote(note);
   }
 
-  public deleteNote(id: Number): Observable<any> {
+  public deleteNote(id: number): Observable<any> {
     return this.noteDataService.deleteNote(id);
   }
-  public createNote(order: Number): Observable<Note> {
+  public createNote(order: number): Observable<Note> {
     return this.noteDataService.createNote(order);
   }
 
@@ -29,7 +29,7 @@ export class NoteService {
     return this.notesDataService.getNotes();
   }
 
-  public updateOrder(notesOrder: NoteOrder[]) {
+  public updateOrder(notesOrder: NoteOrder[]): void {
     this.notesDataService.updateOrder(notesOrder);
   }
 }

@@ -1,6 +1,6 @@
-import { NoteDesign } from "./note-design.model";
-import { NoteHistory } from "./note-history.model";
-import { User } from "./user.model";
+import { NoteDesign } from './note-design.model';
+import { NoteHistory } from './note-history.model';
+import { User } from './user.model';
 
 export interface Note {
   id: number;

@@ -1,4 +1,4 @@
-import { Note } from "./note.model";
+import { Note } from './note.model';
 
 export interface NoteDesign {
   id: number;

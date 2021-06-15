@@ -35,7 +35,7 @@ export class BaseDataService {
 
   private generateGetRequest<TModel>(model: TModel): string {
     const jsModel = Object.assign({}, model);
-    let result: string = '?';
+    let result = '?';
     for (const [key, value] of Object.entries(jsModel)) {
       result += `${key}=${value}&`;
     }

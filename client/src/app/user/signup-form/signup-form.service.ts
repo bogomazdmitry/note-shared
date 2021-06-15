@@ -54,7 +54,7 @@ export class SignUpFormService extends BaseFormService {
     );
   }
 
-  protected createValidationErrors() {
+  protected createValidationErrors(): any {
     return {
       userName: {
         required: { required: true },

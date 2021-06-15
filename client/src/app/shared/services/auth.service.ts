@@ -21,7 +21,7 @@ export class AuthService {
     localStorage.setItem(fieldLocalStorage.accessToken, token.access_token);
   }
 
-  public getAccessToken() {
+  public getAccessToken(): string | null {
     return localStorage.getItem(fieldLocalStorage.accessToken);
   }
 

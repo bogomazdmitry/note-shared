@@ -8,15 +8,17 @@ export function IsUniqueSelfUserName(
   changeUserInfo: ChangeUserInfo | null,
   authDataService: AuthDataService,
   handleErrors: (httpErrorResponse: HttpErrorResponse) => void
-) {
-  return function (formGroup: FormGroup): void {
-    const formGroupUserName = formGroup.controls['userName'];
+): (formGroup: FormGroup) => void {
+  return (formGroup: FormGroup): void => {
+    const formGroupUserName = formGroup.controls.userName;
     const userName = formGroupUserName.value;
-    if (!formGroupUserName.pristine && !formGroupUserName.invalid && userName != changeUserInfo?.userName) {
+    if (
+      !formGroupUserName.pristine &&
+      !formGroupUserName.invalid &&
+      userName !== changeUserInfo?.userName
+    ) {
       authDataService.checkUniqueUserName(userName).subscribe(
-        (answer) => {
-
-        },
+        (answer) => {},
         (httpErrorResponse) => {
           handleErrors(httpErrorResponse);
         }

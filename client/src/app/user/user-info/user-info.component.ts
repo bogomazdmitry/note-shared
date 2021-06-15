@@ -25,28 +25,26 @@ export class UserInfoComponent implements OnInit {
     this.buttonDisable = false;
   }
 
-  onSubmit() {
+  onSubmit(): void {
     const newUser: ChangeUserInfo = this.userFormValidation.formGroup.value;
-    this.userDataService
-      .changeUserInfo(newUser)
-      .subscribe(
-        (answer) => {
-          this.userFormValidation.changeUserInfo = {
-            email: answer.email,
-            userName: answer.userName,
-            oldPassword: '',
-            confirmNewPassword: '',
-            newPassword: '',
-          };
-          this.userService.saveUser(answer);
-          this.globalSuccess = "Changed!";
-          this.buttonDisable = false;
-        },
-        (httpErrorResponse) => {
-          this.globalSuccess = "";
-          this.userFormValidation.handleErrors(httpErrorResponse);
-          this.buttonDisable = false;
-        }
-      );
+    this.userDataService.changeUserInfo(newUser).subscribe(
+      (answer) => {
+        this.userFormValidation.changeUserInfo = {
+          email: answer.email,
+          userName: answer.userName,
+          oldPassword: '',
+          confirmNewPassword: '',
+          newPassword: '',
+        };
+        this.userService.saveUser(answer);
+        this.globalSuccess = 'Changed!';
+        this.buttonDisable = false;
+      },
+      (httpErrorResponse) => {
+        this.globalSuccess = '';
+        this.userFormValidation.handleErrors(httpErrorResponse);
+        this.buttonDisable = false;
+      }
+    );
   }
 }

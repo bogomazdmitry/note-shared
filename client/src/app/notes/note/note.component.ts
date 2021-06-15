@@ -12,12 +12,12 @@ import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
 })
 export class NoteComponent {
   @Input()
-  note: Note;
+  public note: Note;
 
   @Input()
-  deleteNote: (note: Note) => void;
+  public deleteNote: (note: Note) => void;
 
-  dialogIsOpened: Boolean = false;
+  private dialogIsOpened = false;
 
   constructor(
     public dialog: MatDialog,
@@ -30,7 +30,7 @@ export class NoteComponent {
     y: 0,
   };
 
-  public onMouseDown($event: any) {
+  public onMouseDown($event: any): void {
     this.mousePosition.x = $event.screenX;
     this.mousePosition.y = $event.screenY;
   }
@@ -54,7 +54,7 @@ export class NoteComponent {
       dialogRef.afterClosed().subscribe((result) => {
         this.dialogIsOpened = false;
         if (result) {
-          this.noteService.changeNote(result).subscribe((updatedNote)=>{
+          this.noteService.changeNote(result).subscribe((updatedNote) => {
             this.note = updatedNote;
           });
         } else {

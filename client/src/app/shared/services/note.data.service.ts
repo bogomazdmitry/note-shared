@@ -16,10 +16,10 @@ export class NoteDataService extends BaseDataService {
     return this.sendPostRequest(JSON.stringify(note), actionRoutes.noteUpdate);
   }
 
-  public deleteNote(id: Number): Observable<any> {
+  public deleteNote(id: number): Observable<any> {
     return this.sendPostRequest({ id }, actionRoutes.noteDelete);
   }
-  public createNote(order: Number): Observable<Note> {
+  public createNote(order: number): Observable<Note> {
     return this.sendPostRequest(order, actionRoutes.noteCreate);
   }
 }

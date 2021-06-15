@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
     public readonly router: Router
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     if (this.authService.isAuthorize()) {
       this.userName =  this.userService.getUser()?.userName;
     }

@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { FormGroup, ValidationErrors } from '@angular/forms';
+import { FormGroup, ValidationErrors, AbstractControl } from '@angular/forms';
 import { somethingWentWrong } from 'src/app/shared/constants/errors.constants';
 
 export abstract class BaseFormService {
@@ -14,9 +14,9 @@ export abstract class BaseFormService {
   constructor(private globalErrors?: { [key: string]: string }) {}
 
   public setError(field: string, error: string): boolean {
-    let result: boolean =
-      this.formGroup.controls[field] != undefined ||
-      this.validationErrors[field][error] != undefined;
+    const result =
+      this.formGroup.controls[field] !== undefined ||
+      this.validationErrors[field][error] !== undefined;
     if (result) {
       this.formGroup.controls[field].setErrors(
         this.validationErrors[field][error]
@@ -39,13 +39,13 @@ export abstract class BaseFormService {
     [key: string]: { [key: string]: ValidationErrors };
   };
 
-  public getFormField(nameField: string) {
+  public getFormField(nameField: string): AbstractControl {
     return this.formGroup.controls[nameField];
   }
 
   public handleErrors(httpErrorResponse: HttpErrorResponse): void {
     try {
-      let errorMessage: string[] = httpErrorResponse.error?.split(' ');
+      const errorMessage = httpErrorResponse.error?.split(' ');
       if (!this.setError(errorMessage[0], errorMessage[1])) {
         this.handleGlobalErrors(httpErrorResponse);
       }
@@ -54,10 +54,10 @@ export abstract class BaseFormService {
     }
   }
 
-  public handleGlobalErrors(httpErrorResponse: HttpErrorResponse) {
+  public handleGlobalErrors(httpErrorResponse: HttpErrorResponse): void {
     if (
       !this.globalErrors ||
-      this.globalErrors[httpErrorResponse.error.error_description] == undefined
+      this.globalErrors[httpErrorResponse.error.error_description] === undefined
     ) {
       this.showError(somethingWentWrong);
     } else {

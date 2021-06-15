@@ -90,9 +90,17 @@ export class UserFormService extends BaseFormService {
       {
         validator: [
           MustMatch('newPassword', 'confirmNewPassword'),
-          IsUniqueSelfUserName(this.changeUserInfo, this.authDataService, this.handleErrors.bind(this)),
-          IsUniqueSelfEmail(this.changeUserInfo, this.authDataService, this.handleErrors.bind(this)),
-          FormIsChanged(this.changeUserInfo)
+          IsUniqueSelfUserName(
+            this.changeUserInfo,
+            this.authDataService,
+            this.handleErrors.bind(this)
+          ),
+          IsUniqueSelfEmail(
+            this.changeUserInfo,
+            this.authDataService,
+            this.handleErrors.bind(this)
+          ),
+          FormIsChanged(this.changeUserInfo),
         ],
       }
     );

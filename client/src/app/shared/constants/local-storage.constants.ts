@@ -1,4 +1,4 @@
 export const fieldLocalStorage = {
-  accessToken: "accessToken",
-  user: "user",
-}
+  accessToken: 'accessToken',
+  user: 'user',
+};

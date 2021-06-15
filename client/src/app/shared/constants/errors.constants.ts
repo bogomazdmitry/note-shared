@@ -5,4 +5,4 @@ export const signInErrors: { [key: string]: string } = {
   invalidCredentials: 'Email or password is incorrect',
 };
 
-export const somethingWentWrong = "Something went wrong";
+export const somethingWentWrong = 'Something went wrong';

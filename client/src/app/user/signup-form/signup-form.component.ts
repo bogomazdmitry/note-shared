@@ -25,15 +25,12 @@ export class SignUpFormComponent implements OnInit {
   onSubmit(): void {
     this.buttonDisable = true;
     this.signUpFormValidator.globalError = '';
-    let signUpModel: SignUpModel = this.signUpFormValidator.formGroup
-      .value;
+    const signUpModel = this.signUpFormValidator.formGroup.value;
     this.signUpDataService.signUp(signUpModel).subscribe(
       (answer) => {
         this.router.navigate(['/']);
       },
       (httpErrorResponse) => {
-        console.log(httpErrorResponse);
-        console.log("httpErrorResponse");
         this.signUpFormValidator.handleErrors(httpErrorResponse);
         this.buttonDisable = false;
       }

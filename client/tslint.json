@@ -13,9 +13,6 @@
     "array-type": false,
     "arrow-return-shorthand": true,
     "curly": true,
-    "deprecation": {
-      "severity": "warning"
-    },
     "eofline": true,
     "import-blacklist": [
       true,
@@ -104,6 +101,7 @@
         }
       ]
     },
+    "member-access": true,
     "variable-name": {
       "options": [
         "ban-keywords",
@@ -139,13 +137,11 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "app",
       "kebab-case"
     ]
   }

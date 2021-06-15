@@ -25,7 +25,8 @@ export class SignInFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRouter.queryParams.subscribe((queryParam: any) => {
-      this.backUrl = queryParam['backUrl'];
+      const backUrl = 'backUrl';
+      this.backUrl = queryParam[backUrl];
     });
     this.buttonDisable = false;
   }
@@ -33,7 +34,7 @@ export class SignInFormComponent implements OnInit {
   onSubmit(): void {
     this.buttonDisable = true;
     this.signInFormValidator.globalError = '';
-    let signinModel: SignInModel = this.signInFormValidator.formGroup
+    const signinModel = this.signInFormValidator.formGroup
       .value;
     this.signInService.sigIn(signinModel).subscribe(
       (answer) => {

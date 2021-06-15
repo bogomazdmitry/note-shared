@@ -1,4 +1,4 @@
 export interface NoteOrder {
-  id: Number;
-  order: Number;
+  id: number;
+  order: number;
 }

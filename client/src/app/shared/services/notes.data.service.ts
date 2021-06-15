@@ -13,7 +13,7 @@ export class NotesDataService extends BaseDataService {
   }
 
   public getNotes(): Observable<Note[]> {
-    return this.sendGetRequest("", actionRoutes.notesGet);
+    return this.sendGetRequest('', actionRoutes.notesGet);
   }
 
   public updateOrder(notesOrder: NoteOrder[]): Observable<NoteOrder[]> {

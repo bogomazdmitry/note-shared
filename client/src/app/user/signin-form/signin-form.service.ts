@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
+  EmailValidator,
   FormBuilder,
   FormGroup,
   ValidationErrors,
@@ -25,7 +26,7 @@ export class SignInFormService extends BaseFormService {
     });
   }
 
-  protected createValidationErrors() {
+  protected createValidationErrors(): any {
     return {
       email: {
         required: { required: true },

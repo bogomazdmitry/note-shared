@@ -6,9 +6,9 @@ import { AuthDataService } from '../services/auth.data.service';
 export function IsUniqueEmail(
   authDataService: AuthDataService,
   handleErrors: (httpErrorResponse: HttpErrorResponse) => void
-) {
-  return function (formGroup: FormGroup): void {
-    const formGroupEmail = formGroup.controls['email'];
+): (formGroup: FormGroup) => void {
+  return (formGroup: FormGroup): void => {
+    const formGroupEmail = formGroup.controls.email;
     const email = formGroupEmail.value;
     if (!formGroupEmail.pristine && !formGroupEmail.invalid) {
       authDataService.checkUniqueEmail(email).subscribe(
