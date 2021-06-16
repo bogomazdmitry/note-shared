@@ -14,7 +14,6 @@ export function FormIsChanged(changeUserInfo: ChangeUserInfo | null): (formGroup
       newUser.userName === changeUserInfo?.userName
     ) {
       formGroup.controls.globalErrors.setErrors({ noChanges: true });
-      console.log(formGroup);
     }
     else {
       formGroup.controls.globalError.setErrors(null);

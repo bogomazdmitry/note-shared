@@ -17,7 +17,7 @@ namespace NoteShared.Services.Interfaces
 
         public async Task<ServiceRespose<IEnumerable<Note>>> GetAllNotes(string userID)
         {
-            return new ServiceRespose<IEnumerable<Note>>(_repositoryNotes.GetAllByQueryable(e => e.UserID == userID).AsEnumerable());
+            return new ServiceRespose<IEnumerable<Note>>(_repositoryNotes.GetAllByQueryable(e => e.UserID == userID).ToList());
         }
 
         public async Task<ServiceRespose<Note>> GetNote(string userID, int noteId)

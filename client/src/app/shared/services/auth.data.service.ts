@@ -35,10 +35,8 @@ export class AuthDataService extends BaseDataService {
         email: answer.email,
         password: answer.password,
       };
-      console.log(signInModel);
       this.sigIn(signInModel);
     });
-    console.log(subSignUp);
     return subSignUp;
   }
 
@@ -58,9 +56,7 @@ export class AuthDataService extends BaseDataService {
       ),
       false
     ).pipe(share());
-    console.log(signInModel);
     sub.subscribe((answer) => {
-      console.log(signInModel);
       this.authService.saveAccessToken(answer);
       this.userService.getUserInfoAndSave();
     });

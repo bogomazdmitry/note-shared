@@ -11,9 +11,12 @@ export class BaseDataService {
   public sendPostRequest<TModel>(
     model: TModel,
     actionRoute: string,
-    headers: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json'),
+    headers: HttpHeaders = new HttpHeaders(),
     prefix: boolean = true
   ): Observable<any> {
+    if (!headers.get('Content-type')) {
+      headers = headers.set('Content-Type', 'application/json');
+    }
     return this.httpClient.post(
       environment.serverUrl + (prefix ? this.controllerRoute : '') + actionRoute,
       model,
@@ -27,8 +30,13 @@ export class BaseDataService {
     headers: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json'),
     prefix: boolean = true
   ): Observable<any> {
+    if (!headers.get('Content-type')) {
+      headers = headers.set('Content-Type', 'application/json');
+    }
     return this.httpClient.delete(
-      environment.serverUrl + (prefix ? this.controllerRoute : '') + actionRoute,
+      `${environment.serverUrl}${
+        prefix ? this.controllerRoute : ''
+      }${actionRoute}${this.generateGetRequest(model)}`,
       { headers }
     );
   }
@@ -48,6 +56,9 @@ export class BaseDataService {
     headers: HttpHeaders = new HttpHeaders(),
     prefix: boolean = true
   ): Observable<any> {
+    if (!headers.get('Content-type')) {
+      headers = headers.set('Content-Type', 'application/json');
+    }
     return this.httpClient.get(
       `${environment.serverUrl}${
         prefix ? this.controllerRoute : ''

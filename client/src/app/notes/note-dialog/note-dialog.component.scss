@@ -8,4 +8,60 @@ mat-form-field {
   width: 100%;
 }
 
-// ::ng-deep
+.note-dialog-container {
+  padding: 5px;
+  @include media-breakpoint-down(md) {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  @include media-breakpoint-up(md) {
+    min-height: 250px;
+    min-width: 350px;
+    resize: both;
+    overflow: auto;
+  }
+  max-width: none !important;
+
+  .mat-form-field-infix {
+    width: auto !important;
+    border-top: 0 !important;
+    height: 100%;
+  }
+
+  .mat-dialog-title {
+    margin-bottom: 0px !important;
+  }
+
+  .drag-indicator {
+    @include media-breakpoint-down(md) {
+      display: none !important;
+    }
+  }
+
+  textarea {
+    resize: none !important;
+    height: 100%;
+  }
+
+  .box {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+  }
+
+  .mat-form-field-wrapper {
+    height: 100%;
+  }
+
+  .mat-form-field-flex {
+    height: 100%;
+  }
+
+  .mat-dialog-content {
+    max-height: none !important;
+  }
+
+  .mat-dialog-container {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+}

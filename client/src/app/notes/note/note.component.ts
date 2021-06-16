@@ -48,6 +48,7 @@ export class NoteComponent {
         hasBackdrop: false,
         height: '500px',
         width: '780px',
+        panelClass: 'note-dialog-container',
         scrollStrategy: this.overlay.scrollStrategies.noop(),
       });
 

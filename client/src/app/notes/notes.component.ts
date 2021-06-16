@@ -55,10 +55,9 @@ export class NotesComponent implements OnInit {
     this.noteService
       .createNote(this.grid.getItems().length)
       .subscribe((result) => {
-        console.log(this.grid.getItems());
-        console.log(result);
         this.notes.push(result);
 
+        ///make as dir
         setTimeout(() => {
           if (this.notesRef) {
             this.grid.add(this.notesRef.last.nativeElement, { index: 0 });

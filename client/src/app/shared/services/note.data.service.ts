@@ -12,12 +12,11 @@ export class NoteDataService extends BaseDataService {
   }
 
   public changeNote(note: Note): Observable<Note> {
-    console.log(note);
     return this.sendPostRequest(JSON.stringify(note), actionRoutes.noteUpdate);
   }
 
   public deleteNote(id: number): Observable<any> {
-    return this.sendPostRequest({ id }, actionRoutes.noteDelete);
+    return this.sendDeleteRequest({}, actionRoutes.noteDelete);
   }
   public createNote(order: number): Observable<Note> {
     return this.sendPostRequest(order, actionRoutes.noteCreate);
