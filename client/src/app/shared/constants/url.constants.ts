@@ -11,6 +11,10 @@ export const actionRoutes = {
   authCheckUniqueEmail: 'check-unique-email',
 };
 
+export const hubsRoutes = {
+  note: '/note-hub'
+};
+
 export const controllerRoutes = {
   auth: '/api/auth/',
   user: '/api/user/',

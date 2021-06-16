@@ -12,6 +12,7 @@ using IdentityServer4;
 using NoteShared.Api.Configuration;
 using NoteShared.Api.Configuration.IdentityServer;
 using NoteShared.Api.Configuration.Identity;
+using NoteShared.Api.Hubs;
 
 namespace Api
 {
@@ -66,7 +67,6 @@ namespace Api
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
 
-            services.AddAuthorization();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddLocalApi(options =>
                 {
@@ -84,7 +84,10 @@ namespace Api
             });
 
             services.AddRepositoreis();
+            
             services.AddServices();
+
+            services.AddSignalR();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -122,6 +125,7 @@ namespace Api
             app.UseEndpoints(e => 
             {
                 e.MapControllers();
+                e.MapHub<NoteHub>("note-hub");
             });
         }
     }
