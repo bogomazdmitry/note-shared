@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NoteShared.Infrastructure.Data.Entity.NoteHistories;
 using NoteShared.Infrastructure.Data.Entity.Notes;
-using NoteShared.Infrastructure.Data.Entity.NoteDesigns;
 using NoteShared.Infrastructure.Data.Entity.Users;
 using NoteShared.Infrastructure.Data.Repositories;
+using NoteShared.Infrastructure.Data.Entity.NoteTexts;
+using NoteShared.Infrastructure.Data.Entity.NoteDesigns;
 
 namespace NoteShared.Api.Configuration
 {
@@ -11,10 +12,11 @@ namespace NoteShared.Api.Configuration
     {
         public static void AddRepositoreis(this IServiceCollection services)
         {
-            services.AddScoped<IRepositioryUser, RepositoryUser>();
+            services.AddScoped<IRepositioryUsers, RepositoryUsers>();
             services.AddScoped<IRepositoryNotes, RepositoryNotes>();
-            services.AddScoped<IRepositoryNoteDesigns, RepositoryNoteDesigns>();
             services.AddScoped<IRepositoryNoteHistories, RepositoryNoteHistories>();
+            services.AddScoped<IRepositoryNoteDesigns, RepositoryNoteDesigns>();
+            services.AddScoped<IRepositoryNoteTexts, RepositoryNoteTexts>();
         }
     }
 }

@@ -1,8 +1,10 @@
+import { MuuriService } from './../../shared/services/muuri.service';
 import { Overlay } from '@angular/cdk/overlay';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Note } from 'src/app/shared/models/note.model';
 import { NoteService } from 'src/app/shared/services/note.service';
+import { NoteSignalRService } from 'src/app/shared/services/note.signalr.service';
 import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
 
 @Component({
@@ -14,25 +16,32 @@ export class NoteComponent {
   @Input()
   public note: Note;
 
-  @Input()
-  public deleteNote: (note: Note) => void;
-
   private dialogIsOpened = false;
-
-  constructor(
-    public dialog: MatDialog,
-    public overlay: Overlay,
-    private readonly noteService: NoteService
-  ) {}
 
   private mousePosition = {
     x: 0,
     y: 0,
   };
 
+  constructor(
+    public dialog: MatDialog,
+    public overlay: Overlay,
+    private readonly noteService: NoteService,
+    private readonly muuriService: MuuriService
+  ) {}
+
   public onMouseDown($event: any): void {
     this.mousePosition.x = $event.screenX;
     this.mousePosition.y = $event.screenY;
+  }
+
+  public onMouseUp($event: any): void {
+    if (
+      this.mousePosition.x !== $event.screenX &&
+      this.mousePosition.y !== $event.screenY
+    ) {
+      this.muuriService.updateOrder();
+    }
   }
 
   public openDialog($event: any): void {
@@ -51,16 +60,14 @@ export class NoteComponent {
         panelClass: 'note-dialog-container',
         scrollStrategy: this.overlay.scrollStrategies.noop(),
       });
-
-      dialogRef.afterClosed().subscribe((result) => {
+      const sub = dialogRef.afterClosed().subscribe((result) => {
         this.dialogIsOpened = false;
         if (result) {
-          this.noteService.changeNote(result).subscribe((updatedNote) => {
-            this.note = updatedNote;
-          });
+          this.noteService.updateNote(result);
         } else {
-          this.deleteNote(this.note);
+          this.noteService.deleteNote(this.note.id);
         }
+        sub.unsubscribe();
       });
     }
   }

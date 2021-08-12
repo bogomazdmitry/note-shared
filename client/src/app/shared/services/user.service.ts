@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { fieldLocalStorage } from '../constants/local-storage.constants';
 import { User } from '../models/user.model';
 import { UserDataService } from './user.data.service';
@@ -17,8 +17,12 @@ export class UserService {
     return userInfo ? JSON.parse(userInfo) : null;
   }
 
-  public getUserInfoAndSave(): Subscription {
-    return this.userDataService.getUserInfo().subscribe((answer) => {
+  public getUserFromServer(): Observable<User> {
+    return this.userDataService.getUserInfo();
+  }
+
+  public getUserFromServerInfoAndSave(): Subscription {
+    return this.getUserFromServer().subscribe((answer) => {
       this.saveUser(answer);
     });
   }

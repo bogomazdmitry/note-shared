@@ -1,13 +1,16 @@
-<div class="d-flex justify-content-center">
-  <button mat-button style="font-size: medium;" (click)="addNote()">
-    <mat-icon class="mx-1">add</mat-icon>
-    Add new note
-  </button>
+<div class="buttons-panel">
+  <div class="add-note">
+    <button mat-button (click)="this.noteService.createNote()">
+      <mat-icon class="mx-1">add</mat-icon>
+      Add new note
+    </button>
+  </div>
+  <notifications-notifications> </notifications-notifications>
 </div>
-<div (domChange)="refreshGrid()" class="grid">
-  <div #notes class="item col p-1" *ngFor="let note of notes">
+<div #gridElement class="grid hide">
+  <div #notes class="item col p-1" *ngFor="let note of noteService.notes">
     <div class="item-content">
-      <notes-note [deleteNote]="this.deleteNote.bind(this)" [note]="note"></notes-note>
+      <notes-note [note]="note"></notes-note>
     </div>
   </div>
 </div>

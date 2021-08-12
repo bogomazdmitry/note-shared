@@ -1,11 +1,15 @@
-<mat-card class="text-break border border-primary" (mousedown)="onMouseDown($event)" (click)="openDialog($event)">
+<mat-card
+  class="text-break border border-primary"
+  (mousedown)="onMouseDown($event)"
+  (mouseup)="onMouseUp($event)"
+  (click)="openDialog($event)"
+  [ngStyle]="{ 'background-color': note.noteDesign?.color }"
+>
   <mat-card-header>
-    <mat-card-title>{{ this.note.tittle }}</mat-card-title>
+    <mat-card-title>{{ this.note.noteText?.tittle }}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <p>
-      {{ this.note.text }}
-    </p>
+    {{ this.note.noteText?.text }}
   </mat-card-content>
   <mat-card-actions>
     <button mat-button></button>

@@ -13,7 +13,6 @@ namespace NoteShared.DTO
 
 
         [Required]
-        //[RegularExpression()]
         public string Password { get; set; }
 
         [Required]

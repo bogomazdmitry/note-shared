@@ -1,0 +1,13 @@
+<button mat-icon-button class="mx-1" [matMenuTriggerFor]="menu">
+  <mat-icon
+    [matBadgeHidden]="countNotifications == 0"
+    [matBadge]="countNotifications"
+  >
+    notifications
+  </mat-icon>
+</button>
+<mat-menu #menu="matMenu" xPosition="before">
+  <notifications-dynamic-notifications
+    (changingCountNotificationsEvent)="setCountNotification($event)"
+  ></notifications-dynamic-notifications>
+</mat-menu>

@@ -1,7 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SignUpModel } from '../../shared/models/signup.model';
-import { AuthDataService } from '../../shared/services/auth.data.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { SignUpFormService } from './signup-form.service';
 
 @Component({
@@ -13,27 +13,23 @@ export class SignUpFormComponent implements OnInit {
   public buttonDisable: boolean;
 
   constructor(
-    private readonly signUpDataService: AuthDataService,
-    public readonly signUpFormValidator: SignUpFormService,
-    private readonly router: Router
+    private readonly authService: AuthService,
+    public readonly signUpFormValidator: SignUpFormService
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.buttonDisable = false;
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     this.buttonDisable = true;
     this.signUpFormValidator.globalError = '';
     const signUpModel = this.signUpFormValidator.formGroup.value;
-    this.signUpDataService.signUp(signUpModel).subscribe(
-      (answer) => {
-        this.router.navigate(['/']);
-      },
-      (httpErrorResponse) => {
-        this.signUpFormValidator.handleErrors(httpErrorResponse);
-        this.buttonDisable = false;
-      }
-    );
+    this.authService.signUp(signUpModel, this.handleError.bind(this));
+  }
+
+  public handleError(httpErrorResponse: HttpErrorResponse): void {
+    this.signUpFormValidator.handleErrors(httpErrorResponse);
+    this.buttonDisable = false;
   }
 }

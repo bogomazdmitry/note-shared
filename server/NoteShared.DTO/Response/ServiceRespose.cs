@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NoteShared.DTO
+﻿namespace NoteShared.DTO
 {
     public class ServiceRespose
     {
+
         public ServiceRespose() 
         {
             Success = true;

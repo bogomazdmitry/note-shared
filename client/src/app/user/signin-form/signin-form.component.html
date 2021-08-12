@@ -1,15 +1,15 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col col-sm-12 col-md-8 col-lg-6">
-            <form class="signin-form" [formGroup]="signInFormValidator.formGroup" (submit)="onSubmit()">
+            <form #formSignIn class="signin-form" [formGroup]="signInFormValidator.formGroup" (submit)="onSubmit()">
                 <mat-card>
                     <mat-card-header class="pb-3">
                         Login
                     </mat-card-header>
                     <mat-card-content>
-                        <mat-form-field class="pb-3">
+                        <mat-form-field #matInputEmail class="pb-3">
                             <mat-label>Email</mat-label>
-                            <input matInput formControlName="email" type="text">
+                            <input #inputEmail matInput formControlName="email" value="" type="text">
                             <mat-error *ngIf="signInFormValidator.getFormField('email').invalid
                                 && signInFormValidator.getFormField('email').touched">
                                 <div *ngIf="signInFormValidator.hasError('email', 'required')">
@@ -22,7 +22,7 @@
                         </mat-form-field>
                         <mat-form-field class="pb-3">
                             <mat-label for="password">Password</mat-label>
-                            <input matInput formControlName="password" type="password">
+                            <input #inputPassword matInput formControlName="password" value="" type="password">
                             <mat-error *ngIf="signInFormValidator.getFormField('password').invalid
                                 && signInFormValidator.getFormField('password').touched">
                                 <div>Incorrect password</div>

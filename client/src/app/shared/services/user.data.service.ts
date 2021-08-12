@@ -1,4 +1,3 @@
-import { HttpHeaders } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -18,6 +17,7 @@ export class UserDataService extends BaseDataService {
   }
 
   public changeUserInfo(changeUserInfo: ChangeUserInfo): Observable<User> {
-    return this.sendPostRequest(JSON.stringify(changeUserInfo), actionRoutes.userChangeInfo);
+    return this.sendPostRequest(
+      JSON.stringify(changeUserInfo), actionRoutes.userChangeInfo);
   }
 }

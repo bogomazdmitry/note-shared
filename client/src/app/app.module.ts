@@ -10,6 +10,8 @@ import { UserRoutingModule } from './user/user-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TokenInterceptor } from './shared/services/auth.interseptor';
 import { NotesModule } from './notes/notes.module';
+import { GlobalErrorInterceptor } from './shared/services/global-error.interceptor';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,9 +25,11 @@ import { NotesModule } from './notes/notes.module';
     SharedModule,
     NgbModule,
     NotesModule,
+    NotificationsModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: GlobalErrorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent],
 })

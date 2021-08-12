@@ -8,10 +8,11 @@ namespace NoteShared.Services.Interfaces
 {
     public class AuthService
     {
-        private readonly IRepositioryUser _repositioryUser;
+        private readonly IRepositioryUsers _repositioryUser;
+
         private readonly UserManager<User> _userManager;
 
-        public AuthService(UserManager<User> userManager, IRepositioryUser repositioryUser)
+        public AuthService(UserManager<User> userManager, IRepositioryUsers repositioryUser)
         {
             _repositioryUser = repositioryUser;
             _userManager = userManager;

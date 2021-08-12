@@ -10,9 +10,9 @@ namespace NoteShared.Infrastructure.Data.Repositories
     public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         where TEntity : class
     {
-
-        private readonly ApplicationContext _context;
-        private readonly DbSet<TEntity> _dbSet;
+        protected readonly ApplicationContext _context;
+     
+        protected readonly DbSet<TEntity> _dbSet;
 
         public BaseRepository(ApplicationContext context) 
         {
@@ -34,10 +34,10 @@ namespace NoteShared.Infrastructure.Data.Repositories
             return entities;
         }
 
-        public IQueryable<TEntity> GetAllByQueryable(System.Linq.Expressions.Expression<Func<TEntity, bool>> expression, System.Linq.Expressions.Expression<Func<TEntity, object>> include = null)
+        public IQueryable<TEntity> GetAllByQueryable(System.Linq.Expressions.Expression<Func<TEntity, bool>> expression, params System.Linq.Expressions.Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> query = _dbSet;
-            if (include != null)
+            foreach (var include in includes)
             {
                 query = query.Include(include);
             }
@@ -68,7 +68,7 @@ namespace NoteShared.Infrastructure.Data.Repositories
 
         public async Task<TEntity> UpdateAsync(TEntity entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            _context.Update(entity);
             await _context.SaveChangesAsync();
             return entity;
         }

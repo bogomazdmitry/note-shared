@@ -2,7 +2,7 @@
 {
     public class ServiceRespose<TModel>
     {
-        public ServiceRespose() { }
+        public ServiceRespose() {}
 
         public ServiceRespose(string error)
         {
@@ -20,6 +20,20 @@
         {
             Error = answerRequest.Error;
             Success = answerRequest.Success;
+        }
+
+        public ServiceRespose convertToServiceRespose()
+        {
+            ServiceRespose serviceRespose;
+            if (Success)
+            {
+                serviceRespose = new ServiceRespose();
+            }
+            else
+            {
+                serviceRespose = new ServiceRespose(Error);
+            }
+            return serviceRespose;
         }
 
         public bool Success { get; private set; }

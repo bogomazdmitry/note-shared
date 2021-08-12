@@ -1,0 +1,44 @@
+mat-card {
+  padding: 11px;
+
+  mat-card-header {
+    $lines-title: 2;
+    mat-card-title {
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      -ms-line-clamp: $lines-title;
+      -webkit-line-clamp: $lines-title;
+      line-clamp: $lines-title;
+      display: -webkit-box;
+      word-wrap: break-word;
+      -webkit-box-orient: vertical;
+      box-orient: vertical;
+      width: 100%;
+      font-size: 18px;
+    }
+  }
+
+  $lines-content: 30;
+  mat-card-content {
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -ms-line-clamp: $lines-content;
+    -webkit-line-clamp: $lines-content;
+    line-clamp: $lines-content;
+    display: -webkit-box;
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    width: 100%;
+    font-size: 18px;
+  }
+}
+
+div.mat-card-header-text {
+  margin-left: 0%;
+  margin-right: 0%;
+}

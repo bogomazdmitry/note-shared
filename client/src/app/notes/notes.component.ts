@@ -1,12 +1,13 @@
+import { MuuriService } from './../shared/services/muuri.service';
 import {
   Component,
   ElementRef,
   ViewChildren,
   OnInit,
   AfterViewInit,
+  ViewChild,
+  OnDestroy,
 } from '@angular/core';
-import { Note } from 'src/app/shared/models/note.model';
-import Grid, * as Muuri from 'muuri';
 import { NoteService } from '../shared/services/note.service';
 
 @Component({
@@ -14,61 +15,28 @@ import { NoteService } from '../shared/services/note.service';
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss'],
 })
-export class NotesComponent implements OnInit {
-  @ViewChildren('notes', { read: ElementRef })
-  public notesRef: any;
-  public notes: Note[];
-  public grid: Grid;
+export class NotesComponent implements AfterViewInit, OnDestroy {
+  @ViewChild('gridElement', { read: ElementRef })
+  public gridElement: ElementRef;
 
-  constructor(protected readonly noteService: NoteService) {}
+  constructor(
+    public readonly noteService: NoteService,
+    public readonly muuriService: MuuriService
+  ) {}
 
-  public ngOnInit(): void {
-    this.noteService.getNotes().subscribe((result) => {
-      this.notes = result;
-    });
-  }
-
-  public updateOrder(): void {
-    this.noteService.updateOrder(this.notes);
-  }
-
-  public refreshGrid(): void {
-    if (!this.grid) {
-      this.grid = new Muuri.default('.grid', {
-        dragEnabled: true,
-        layoutOnInit: true,
-      });
-      let onceUpdate = true;
-      this.grid.on('layoutEnd', () => {
-        if (onceUpdate) {
-          onceUpdate = false;
-          this.refreshGrid();
-        }
-      });
-      this.grid.on('layoutEnd', this.updateOrder.bind(this));
+  public ngAfterViewInit(): void {
+    this.muuriService.setGridElement(this.gridElement);
+    if (this.gridElement.nativeElement.childElementCount > 0) {
+      this.muuriService.initGrid();
     } else {
-      this.grid.refreshItems().layout();
+      this.muuriService.startInitMutation(
+        this.muuriService.initGrid.bind(this.muuriService)
+      );
     }
   }
 
-  public addNote(): void {
-    this.noteService
-      .createNote(this.grid.getItems().length)
-      .subscribe((result) => {
-        this.notes.push(result);
-
-        ///make as dir
-        setTimeout(() => {
-          if (this.notesRef) {
-            this.grid.add(this.notesRef.last.nativeElement, { index: 0 });
-          }
-        }, 150);
-      });
-  }
-
-  public deleteNote(note: Note): void {
-    this.noteService.deleteNote(note.id).subscribe((result) => {
-      this.notes = this.notes.filter((nt) => nt.id !== note.id);
-    });
+  public ngOnDestroy(): void {
+    this.muuriService.refreshNotesElementMutation?.disconnect();
+    this.muuriService.addNotesElementMutation?.disconnect();
   }
 }

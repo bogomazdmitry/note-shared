@@ -1,3 +1,4 @@
+import { GlobalErrorComponent } from './layout/global-error/global-error.component';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -6,12 +7,10 @@ import { AppMaterialModule } from '../app-material.module';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { CommonModule } from '@angular/common';
+import { ColorCircleModule } from 'ngx-color/circle';
 
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    FooterComponent,
-  ],
+  declarations: [HeaderComponent, FooterComponent, GlobalErrorComponent],
   imports: [
     CommonModule,
     AppBootstrapModule,
@@ -19,15 +18,18 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    ColorCircleModule,
   ],
   exports: [
     CommonModule,
     AppMaterialModule,
     AppBootstrapModule,
-    HeaderComponent,
-    FooterComponent,
     FormsModule,
     ReactiveFormsModule,
-  ]
+    HeaderComponent,
+    FooterComponent,
+    GlobalErrorComponent,
+    ColorCircleModule,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

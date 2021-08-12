@@ -21,22 +21,23 @@ export class UserInfoComponent implements OnInit {
     public userFormValidation: UserFormService
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.buttonDisable = false;
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
+    this.buttonDisable = true;
     const newUser: ChangeUserInfo = this.userFormValidation.formGroup.value;
     this.userDataService.changeUserInfo(newUser).subscribe(
-      (answer) => {
+      (userInfo) => {
         this.userFormValidation.changeUserInfo = {
-          email: answer.email,
-          userName: answer.userName,
+          email: userInfo.email,
+          userName: userInfo.userName,
           oldPassword: '',
           confirmNewPassword: '',
           newPassword: '',
         };
-        this.userService.saveUser(answer);
+        this.userService.saveUser(userInfo);
         this.globalSuccess = 'Changed!';
         this.buttonDisable = false;
       },

@@ -1,6 +1,4 @@
 ﻿using NoteShared.Infrastructure.Data.Entity.Notes;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace NoteShared.Infrastructure.Data.Entity.NoteDesigns
 {
@@ -10,7 +8,8 @@ namespace NoteShared.Infrastructure.Data.Entity.NoteDesigns
 
         public string Color { get; set; }
 
-        [JsonIgnore]
-        public virtual ICollection<Note> Notes { get; set; }
+        public int NoteID { get; set; }
+
+        public virtual Note Note { get; set; }
     }
 }

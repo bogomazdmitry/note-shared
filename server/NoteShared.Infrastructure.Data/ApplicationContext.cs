@@ -4,6 +4,7 @@ using NoteShared.Infrastructure.Data.Entity.Users;
 using NoteShared.Infrastructure.Data.Entity.Notes;
 using NoteShared.Infrastructure.Data.Entity.NoteDesigns;
 using NoteShared.Infrastructure.Data.Entity.NoteHistories;
+using NoteShared.Infrastructure.Data.Entity.NoteTexts;
 
 namespace NoteShared.Infrastructure.Data
 {
@@ -41,9 +42,17 @@ namespace NoteShared.Infrastructure.Data
 
             modelBuilder
                 .Entity<Note>()
-                .HasOne(u => u.Design)
-                .WithMany(p => p.Notes)
-                .HasForeignKey(p => p.DesignID);
+                .HasOne(u => u.NoteDesign)
+                .WithOne(p => p.Note)
+                .HasForeignKey<NoteDesign>(u => u.NoteID)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder
+                .Entity<NoteText>()
+                .HasMany(u => u.Notes)
+                .WithOne(p => p.NoteText)
+                .HasForeignKey(u => u.NoteTextID)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

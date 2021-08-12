@@ -50,7 +50,7 @@ export abstract class BaseFormService {
         this.handleGlobalErrors(httpErrorResponse);
       }
     } catch {
-      this.showError(somethingWentWrong);
+      this.handleGlobalErrors(httpErrorResponse);
     }
   }
 

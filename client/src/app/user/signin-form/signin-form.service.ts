@@ -1,18 +1,10 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  EmailValidator,
-  FormBuilder,
-  FormGroup,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { signInErrors } from 'src/app/shared/constants/errors.constants';
 import { BaseFormService } from '../../shared/services/base-form.service';
 
 @Injectable({ providedIn: 'root' })
 export class SignInFormService extends BaseFormService {
-
   constructor(private readonly formBuilder: FormBuilder) {
     super(signInErrors);
     this.validationErrors = this.createValidationErrors();
@@ -26,7 +18,9 @@ export class SignInFormService extends BaseFormService {
     });
   }
 
-  protected createValidationErrors(): any {
+  protected createValidationErrors(): {
+    [key: string]: { [key: string]: ValidationErrors };
+  } {
     return {
       email: {
         required: { required: true },

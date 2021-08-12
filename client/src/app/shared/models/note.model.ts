@@ -1,17 +1,12 @@
 import { NoteDesign } from './note-design.model';
 import { NoteHistory } from './note-history.model';
-import { User } from './user.model';
+import { NoteText } from './note-text.model';
 
 export interface Note {
   id: number;
-  order: number;
-  tittle: string;
-  text: string;
   number: number;
-  designID: number;
+  order: number;
   noteDesign: NoteDesign | undefined;
-  historyID: number;
   noteHistory: NoteHistory | undefined;
-  userID: string;
-  user: User | undefined;
+  noteText: NoteText;
 }

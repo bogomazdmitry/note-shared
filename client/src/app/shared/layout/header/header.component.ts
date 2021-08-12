@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { User } from '../../models/user.model';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 
@@ -15,7 +14,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     public readonly userService: UserService,
     public readonly authService: AuthService,
-    public readonly router: Router
+    public readonly router: Router,
+    public readonly activatedRouter: ActivatedRoute,
   ) {}
 
   public ngOnInit(): void {

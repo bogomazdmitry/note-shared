@@ -18,9 +18,7 @@ import { UserService } from './user.service';
 @Injectable({ providedIn: 'root' })
 export class AuthDataService extends BaseDataService {
   constructor(
-    httpClient: HttpClient,
-    private readonly authService: AuthService,
-    private readonly userService: UserService
+    httpClient: HttpClient
   ) {
     super(httpClient, controllerRoutes.auth);
   }
@@ -56,10 +54,6 @@ export class AuthDataService extends BaseDataService {
       ),
       false
     ).pipe(share());
-    sub.subscribe((answer) => {
-      this.authService.saveAccessToken(answer);
-      this.userService.getUserInfoAndSave();
-    });
     return sub;
   }
 

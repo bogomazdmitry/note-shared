@@ -4,26 +4,26 @@ using System.Threading.Tasks;
 using NoteShared.DTO;
 using NoteShared.Infrastructure.Data.Entity.Users;
 using System;
+using NoteShared.DTO.Mapping;
+using AutoMapper;
 
 namespace NoteShared.Services.Interfaces
 {
     public class UserService
     {
-        private readonly IRepositioryUser _repositioryUser;
         private readonly UserManager<User> _userManager;
-        private readonly AuthService _authService;
+        private readonly IMapper _mapper;
 
-        public UserService(UserManager<User> userManager, IRepositioryUser repositioryUser, AuthService authService)
+        public UserService(UserManager<User> userManager, IMapper mapper)
         {
-            _repositioryUser = repositioryUser;
             _userManager = userManager;
-            _authService = authService;
+            _mapper = mapper;
         }
 
         public async Task<ServiceRespose<UserInfoResponse>> GetUserInfo(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            UserInfoResponse userInfo = new UserInfoResponse { Email = user.Email, UserName = user.UserName };
+            UserInfoResponse userInfo = _mapper.Map<User, UserInfoResponse>(user);
             return new ServiceRespose<UserInfoResponse>(userInfo);
         }
 
@@ -32,36 +32,13 @@ namespace NoteShared.Services.Interfaces
             var user = await _userManager.FindByIdAsync(userId);
             if (!String.IsNullOrEmpty(userInfo.NewPassword))
             {
-                var identityChangePasswordResult = await _userManager.ChangePasswordAsync(user, user.PasswordHash, userInfo.NewPassword);
+                var identityChangePasswordResult = await _userManager.ChangePasswordAsync(user, userInfo.OldPassword, userInfo.NewPassword);
                 if (!identityChangePasswordResult.Succeeded)
                 {
                     return new ServiceRespose<UserInfoResponse>("oldPassword mastMatch");
                 }
             }
-            if (user.Email != userInfo.Email)
-            {
-                var emalUnique = await _authService.CheckUniqueEmail(userInfo.Email);
-                if (!emalUnique.Success)
-                {
-                    return new ServiceRespose<UserInfoResponse> (emalUnique);
-                }
-            }
-            if (user.UserName != userInfo.UserName)
-            {
-                var userNameUnique = await _authService.CheckUniqueUserName(userInfo.UserName);
-                if (!userNameUnique.Success)
-                {
-                    return new ServiceRespose<UserInfoResponse>(userNameUnique);
-                }
-            }
-            user.Email = userInfo.Email;
-            user.UserName = userInfo.UserName;
-            var identityResult = await _userManager.UpdateAsync(user);
-            if (!identityResult.Succeeded)
-            {
-                return new ServiceRespose<UserInfoResponse>(identityResult.Errors.ToList().ToString());
-            }
-            return new ServiceRespose<UserInfoResponse>();
+            return new ServiceRespose<UserInfoResponse>(_mapper.Map<User, UserInfoResponse>(user));
         }
     }
 }

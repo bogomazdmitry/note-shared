@@ -11,8 +11,7 @@
                             <mat-label>User name</mat-label>
                             <input matInput
                                 formControlName="userName"
-                                type="text"
-                                #userNameInput>
+                                type="text" autocomplete="new-name">
                             <mat-error *ngIf="signUpFormValidator.getFormField('userName').invalid">
                                 <div *ngIf="signUpFormValidator.getFormField('userName').errors?.required
                                     && signUpFormValidator.getFormField('userName').touched">
@@ -27,8 +26,7 @@
                             <mat-label>Email</mat-label>
                             <input matInput
                                 formControlName="email"
-                                type="text"
-                                #userEmailInput>
+                                type="text" autocomplete="new-email">
                             <mat-error *ngIf="signUpFormValidator.getFormField('email').invalid">
                                 <div *ngIf="signUpFormValidator.getFormField('email').errors?.required
                                     && signUpFormValidator.getFormField('email').touched">
@@ -45,7 +43,7 @@
                         </mat-form-field>
                         <mat-form-field class="pb-3">
                             <mat-label for="password">Password</mat-label>
-                            <input matInput formControlName="password" type="password">
+                            <input matInput formControlName="password" type="password" autocomplete="new-password">
                             <mat-error *ngIf="signUpFormValidator.getFormField('password').invalid
                                 && signUpFormValidator.getFormField('password').touched">
                                 <div *ngIf="signUpFormValidator.getFormField('password').errors?.required;
@@ -75,7 +73,7 @@
                         </mat-form-field>
                         <mat-form-field class="pb-3">
                             <mat-label>Confirm password</mat-label>
-                            <input matInput formControlName="confirmPassword" type="password">
+                            <input matInput formControlName="confirmPassword" type="password"  autocomplete="confirm-new-password">
                             <mat-error *ngIf="signUpFormValidator.hasError('confirmPassword','mustMatch')">
                                 Password is not confirm
                             </mat-error>

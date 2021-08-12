@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace NoteShared.DTO
 {
@@ -17,13 +12,11 @@ namespace NoteShared.DTO
         public string UserName { get; set; }
 
         [Required]
-        //[RegularExpression()]
         public string OldPassword { get; set; }
 
-        //[RegularExpression()]
         public string NewPassword { get; set; }
 
-        [Compare("Password")]
+        [Compare("NewPassword")]
         public string ConfirmNewPassword { get; set; }
     }
 }

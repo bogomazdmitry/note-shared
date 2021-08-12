@@ -12,11 +12,12 @@ using static IdentityServer4.IdentityServerConstants;
 namespace Api.Controllers
 {
     [Route("api/notes")]
-    [Authorize(LocalApi.PolicyName)]
+    [Authorize]
     [ApiController]
     public class NotesController : BaseController
     {
         private readonly ILogger<NoteController> _logger;
+
         private readonly NoteService _noteService;
 
         public NotesController(ILogger<NoteController> logger, NoteService noteService)
@@ -34,7 +35,7 @@ namespace Api.Controllers
 
         [Route("update-order")]
         [HttpPost]
-        public async Task<IActionResult> UpdateOrder([FromBody] IEnumerable<NoteOrder> notesOrder)
+        public async Task<IActionResult> UpdateOrder([FromBody] IEnumerable<NoteOrderDto> notesOrder)
         {
             var result = await _noteService.UpdateOrderNotes(LoggedInUserUserId, notesOrder);
             return ResultOf(result);

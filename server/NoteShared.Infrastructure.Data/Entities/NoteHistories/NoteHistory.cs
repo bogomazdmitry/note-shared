@@ -1,6 +1,5 @@
 ﻿using NoteShared.Infrastructure.Data.Entity.Notes;
 using System;
-using System.Text.Json.Serialization;
 
 namespace NoteShared.Infrastructure.Data.Entity.NoteHistories
 {
@@ -14,7 +13,6 @@ namespace NoteShared.Infrastructure.Data.Entity.NoteHistories
 
         public int NoteID { get; set; }
 
-        [JsonIgnore]
         public virtual Note Note { get; set; }
     }
 }

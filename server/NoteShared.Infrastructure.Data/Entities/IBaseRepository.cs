@@ -24,6 +24,6 @@ namespace NoteShared.Infrastructure.Data.Entity
 
         IQueryable<TEntity> GetAllQueryable();
 
-        IQueryable<TEntity> GetAllByQueryable(Expression<Func<TEntity, bool>> expression, Expression<Func<TEntity, object>> include = null);
+        IQueryable<TEntity> GetAllByQueryable(System.Linq.Expressions.Expression<Func<TEntity, bool>> expression, params System.Linq.Expressions.Expression<Func<TEntity, object>>[] includes);
     }
 }

@@ -2,9 +2,9 @@
 
 namespace NoteShared.Infrastructure.Data.Repositories
 {
-    public class RepositoryUser : BaseRepository<User>, IRepositioryUser
+    public class RepositoryUsers : BaseRepository<User>, IRepositioryUsers
     {
-        public RepositoryUser(ApplicationContext context)
+        public RepositoryUsers(ApplicationContext context)
             : base(context)
         {
         }

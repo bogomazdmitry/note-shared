@@ -1,18 +1,21 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using IdentityModel.AspNetCore.OAuth2Introspection;
+using IdentityServer4;
+using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Serilog;
-using Microsoft.EntityFrameworkCore;
-using NoteShared.Infrastructure.Data;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using IdentityModel;
-using IdentityServer4;
 using NoteShared.Api.Configuration;
-using NoteShared.Api.Configuration.IdentityServer;
 using NoteShared.Api.Configuration.Identity;
+using NoteShared.Api.Configuration.IdentityServer;
 using NoteShared.Api.Hubs;
+using NoteShared.Infrastructure.Data;
+using Serilog;
+using System;
 
 namespace Api
 {
@@ -28,8 +31,7 @@ namespace Api
             _hostEnvironment = hostEnvironment;
         }
 
-
-        public void ConfigureServices(IServiceCollection services) 
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
 
@@ -60,18 +62,38 @@ namespace Api
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
+            
+            
+
 
             services.AddIdentity(Configuration);
 
             services.AddIdentityServer(Configuration, _hostEnvironment);
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+            })
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddLocalApi(options =>
                 {
                     options.ExpectedScope = IdentityServerConstants.LocalApi.ScopeName;
                     options.SaveToken = true;
+                })
+                .AddIdentityServerAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme, options =>
+                {
+                    options.Authority = "http://localhost:5000";
+                    options.SupportedTokens = SupportedTokens.Jwt;
+                    options.RequireHttpsMetadata = false;
+                    options.ApiName = IdentityServerConstants.LocalApi.ScopeName;
+                    options.TokenRetriever = new Func<HttpRequest, string>(req =>
+                    {
+                        var fromHeader = TokenRetrieval.FromAuthorizationHeader();
+                        var fromQuery = TokenRetrieval.FromQueryString();
+                        var result = fromHeader(req) ?? fromQuery(req);
+                        return result;
+                    });
                 });
 
             services.AddAuthorization(options =>
@@ -84,10 +106,13 @@ namespace Api
             });
 
             services.AddRepositoreis();
-            
+
             services.AddServices();
 
+            services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
             services.AddSignalR();
+
+            services.AddAutoMapper();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -115,17 +140,16 @@ namespace Api
             app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
-            
+
             app.UseRouting();
 
             app.UseIdentityServer();
             app.UseAuthorization();
-            app.UseAuthorization();
 
-            app.UseEndpoints(e => 
+            app.UseEndpoints(e =>
             {
                 e.MapControllers();
-                e.MapHub<NoteHub>("note-hub");
+                e.MapHub<NoteHub>("hub/note");
             });
         }
     }

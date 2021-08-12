@@ -29,7 +29,6 @@ namespace NoteShared.Api.Configuration.IdentityServer
                 .AddInMemoryApiResources(IdentityServerConfiguration.GetApis())
                 .AddInMemoryApiScopes(IdentityServerConfiguration.GetApiScopes())
                 .AddAspNetIdentity<User>()
-                .AddJwtBearerClientAuthentication()
                 .AddResourceOwnerValidator<CustomResourceOwnerPasswordValidator>();
 
             if (hostEnvironment.IsDevelopment())

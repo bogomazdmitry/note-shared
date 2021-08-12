@@ -1,6 +1,4 @@
-﻿using IdentityModel;
-using IdentityServer4;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NoteShared.DTO;
 using NoteShared.Services.Interfaces;

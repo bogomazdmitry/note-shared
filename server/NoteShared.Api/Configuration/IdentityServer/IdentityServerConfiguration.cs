@@ -10,7 +10,10 @@ namespace NoteShared.Api.Configuration.IdentityServer
     {
         public static IEnumerable<ApiResource> GetApis() => new List<ApiResource>
         {
-            new ApiResource(IdentityServerConstants.LocalApi.ScopeName),
+            new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
+             {
+                 Scopes = new []{ IdentityServerConstants.LocalApi.ScopeName }
+             },
         };
 
         public static IEnumerable<ApiScope> GetApiScopes()

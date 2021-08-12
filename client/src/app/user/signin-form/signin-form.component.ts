@@ -1,9 +1,9 @@
+import { AutofillMonitor } from '@angular/cdk/text-field';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ElementRef, ViewChild } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { UserService } from 'src/app/shared/services/user.service';
-import { SignInModel } from '../../shared/models/sigin.model';
-import { AuthDataService } from '../../shared/services/auth.data.service';
 import { SignInFormService } from './signin-form.service';
 
 @Component({
@@ -17,13 +17,13 @@ export class SignInFormComponent implements OnInit {
   public buttonDisable: boolean;
 
   constructor(
-    private readonly signInService: AuthDataService,
+    private readonly authService: AuthService,
     private readonly activatedRouter: ActivatedRoute,
-    private readonly router: Router,
     public readonly signInFormValidator: SignInFormService,
+    public readonly autofillMonitor: AutofillMonitor
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.activatedRouter.queryParams.subscribe((queryParam: any) => {
       const backUrl = 'backUrl';
       this.backUrl = queryParam[backUrl];
@@ -31,19 +31,19 @@ export class SignInFormComponent implements OnInit {
     this.buttonDisable = false;
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     this.buttonDisable = true;
     this.signInFormValidator.globalError = '';
-    const signinModel = this.signInFormValidator.formGroup
-      .value;
-    this.signInService.sigIn(signinModel).subscribe(
-      (answer) => {
-        this.router.navigate([this.backUrl ? this.backUrl : '/']);
-      },
-      (error) => {
-        this.signInFormValidator.handleErrors(error);
-        this.buttonDisable = false;
-      }
+    const signinModel = this.signInFormValidator.formGroup.value;
+    this.authService.signIn(
+      signinModel,
+      this.backUrl,
+      this.handleErrors.bind(this)
     );
+  }
+
+  public handleErrors(httpErrorResponse: HttpErrorResponse): void {
+    this.signInFormValidator.handleErrors(httpErrorResponse);
+    this.buttonDisable = false;
   }
 }

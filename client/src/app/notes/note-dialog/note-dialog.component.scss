@@ -1,5 +1,13 @@
 mat-form-field {
-  width: 100%;
+  textarea.mat-input-element {
+    padding-right: 10px;
+  }
+}
+
+.colorPalette.mat-menu-panel {
+  border-radius: 15px !important;
+  padding: 5px;
+  overflow: hidden !important;
 }
 
 @import "~bootstrap/scss/bootstrap-grid.scss";
@@ -15,7 +23,7 @@ mat-form-field {
     height: 100% !important;
   }
   @include media-breakpoint-up(md) {
-    min-height: 250px;
+    min-height: 300px;
     min-width: 350px;
     resize: both;
     overflow: auto;
@@ -63,5 +71,20 @@ mat-form-field {
 
   .mat-dialog-container {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    min-height: auto;
+    min-width: auto;
+  }
+
+  .mat-card-note-footer {
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    .mat-chip-list-wrapper {
+      flex-wrap: nowrap !important;
+    }
+    .email-note-card {
+      overflow: hidden;
+      white-space: nowrap;
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { AuthDataService } from 'src/app/shared/services/auth.data.service';
 import { IsUniqueEmail } from 'src/app/shared/validators/email-unique.validator';
 import { MustMatch } from 'src/app/shared/validators/must-match.validator';
@@ -54,7 +54,9 @@ export class SignUpFormService extends BaseFormService {
     );
   }
 
-  protected createValidationErrors(): any {
+  protected createValidationErrors(): {
+    [key: string]: { [key: string]: ValidationErrors };
+  } {
     return {
       userName: {
         required: { required: true },

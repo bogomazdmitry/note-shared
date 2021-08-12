@@ -1,11 +1,27 @@
 @import "~bootstrap/scss/bootstrap-grid.scss";
 
+.buttons-panel {
+  display: flex;
+  justify-content: space-between;
+}
+
 .grid {
   position: relative;
   width: 100%;
+  opacity: 1;
+  transition: opacity 1s;
 }
+
+.grid.hide {
+  opacity: 0;
+}
+
 .my-container {
   width: 100%;
+}
+
+.add-note {
+  font-size: medium;
 }
 
 .item {
