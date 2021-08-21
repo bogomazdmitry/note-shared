@@ -8,4 +8,5 @@ export interface Note {
   noteDesign: NoteDesign | undefined;
   noteHistory: NoteHistory | undefined;
   noteText: NoteText;
+  hexColor: string | undefined;
 }

@@ -1,3 +1,6 @@
+import { ThemeService } from './../../shared/services/theme.service';
+import { ThemeChangerComponent } from './../../shared/layout/theme-changer/theme-changer.component';
+import { ColorPaletteService } from './../../shared/services/color-palette.service';
 import { NoteService } from './../../shared/services/note.service';
 import { Note } from 'src/app/shared/models/note.model';
 import {
@@ -11,14 +14,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserService } from 'src/app/shared/services/user.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ColorEvent } from 'ngx-color';
+import { Subject } from 'rxjs/internal/Subject';
 
 @Component({
   selector: 'notes-note-dialog',
   templateUrl: 'note-dialog.component.html',
 })
 export class NoteDialogComponent implements OnInit {
-  @ViewChild('colorPalette')
-  public colorPalette: ElementRef;
   public userEmails: string[] = [];
 
   constructor(
@@ -26,7 +28,9 @@ export class NoteDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA)
     public note: Note,
     private readonly noteService: NoteService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    public readonly colorPaletteService: ColorPaletteService,
+    public readonly themeService: ThemeService
   ) {
     if (!this.note.noteText) {
       this.note.noteText = { id: -1, title: '', text: '' };
@@ -40,6 +44,26 @@ export class NoteDialogComponent implements OnInit {
         const currentEmail = this.userService.getUser()?.email;
         this.userEmails = result.filter((e) => e !== currentEmail);
       });
+
+    // subscribe to changing theme
+    this.themeService.getChangingThemeSubject().subscribe((isDarkTheme) => {
+      this.note.hexColor =
+        this.colorPaletteService.getColorHexFromPalletByColorTitle(
+          this.note.noteDesign?.color
+        );
+    });
+
+    // using js dom
+    const dialog = document.getElementById(this.dialogReference.id);
+    if (dialog) {
+      dialog.addEventListener('mousedown', () => {
+        const parent = dialog.parentElement?.parentElement?.parentElement;
+        const child = dialog.parentElement?.parentElement;
+        if (parent && child && parent.lastElementChild !== child) {
+          parent.appendChild(child);
+        }
+      });
+    }
   }
 
   public saveNote(): void {
@@ -52,18 +76,24 @@ export class NoteDialogComponent implements OnInit {
   }
 
   public changeColorHandler($event: ColorEvent): void {
-    if (!this.note.noteDesign) {
-      this.note.noteDesign = { color: $event.color.hex };
-    } else {
-      this.note.noteDesign.color = $event.color.hex;
+    const newColorTitle =
+      this.colorPaletteService.getColorTitleFromPalletByColorHex(
+        $event.color.hex
+      );
+    if (newColorTitle) {
+      this.note.hexColor = $event.color.hex;
+      if (!this.note.noteDesign) {
+        this.note.noteDesign = { color: newColorTitle };
+      } else {
+        this.note.noteDesign.color = newColorTitle;
+      }
+      this.noteService
+        .updateNoteDesign(this.note.noteDesign, this.note.id)
+        .subscribe((result) => {
+          this.note.noteDesign = result;
+        });
     }
-    this.noteService
-      .updateNoteDesign(this.note.noteDesign, this.note.id)
-      .subscribe((result) => {
-        this.note.noteDesign = result;
-      });
   }
-
 
   public addUser($event: MatChipInputEvent): void {
     this.noteService

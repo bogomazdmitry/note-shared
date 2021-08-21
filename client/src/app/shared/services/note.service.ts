@@ -1,3 +1,4 @@
+import { ThemeService } from './theme.service';
 import { NoteSignalRService } from 'src/app/shared/services/note.signalr.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
@@ -8,6 +9,7 @@ import { NoteDataService } from './note.data.service';
 import { NotesDataService } from './notes.data.service';
 import { NoteDesign } from '../models/note-design.model';
 import { NoteText } from '../models/note-text.model';
+import { ColorPaletteService } from './color-palette.service';
 
 @Injectable({ providedIn: 'root' })
 export class NoteService implements OnDestroy {
@@ -17,10 +19,21 @@ export class NoteService implements OnDestroy {
     protected readonly httpClient: HttpClient,
     protected readonly noteDataService: NoteDataService,
     protected readonly notesDataService: NotesDataService,
-    protected readonly noteSignalR: NoteSignalRService
+    protected readonly noteSignalR: NoteSignalRService,
+    protected readonly themeService: ThemeService,
+    protected readonly colorPaletteService: ColorPaletteService
   ) {
     this.getNotes().subscribe((notes) => {
       this.notes = notes;
+
+      this.themeService.getChangingThemeSubject().subscribe((isDarkTheme) => {
+        this.notes.forEach((note) => {
+          note.hexColor =
+            this.colorPaletteService.getColorHexFromPalletByColorTitle(
+              note.noteDesign?.color
+            );
+        });
+      });
     });
 
     this.noteSignalR.startConnection();

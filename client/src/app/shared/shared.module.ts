@@ -1,3 +1,4 @@
+import { ThemeChangerComponent } from './layout/theme-changer/theme-changer.component';
 import { GlobalErrorComponent } from './layout/global-error/global-error.component';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,7 +11,7 @@ import { CommonModule } from '@angular/common';
 import { ColorCircleModule } from 'ngx-color/circle';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, GlobalErrorComponent],
+  declarations: [HeaderComponent, FooterComponent, GlobalErrorComponent, ThemeChangerComponent],
   imports: [
     CommonModule,
     AppBootstrapModule,
@@ -28,6 +29,7 @@ import { ColorCircleModule } from 'ngx-color/circle';
     ReactiveFormsModule,
     HeaderComponent,
     FooterComponent,
+    ThemeChangerComponent,
     GlobalErrorComponent,
     ColorCircleModule,
   ],

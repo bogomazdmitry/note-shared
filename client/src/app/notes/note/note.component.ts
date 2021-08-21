@@ -1,10 +1,9 @@
 import { MuuriService } from './../../shared/services/muuri.service';
 import { Overlay } from '@angular/cdk/overlay';
-import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Note } from 'src/app/shared/models/note.model';
 import { NoteService } from 'src/app/shared/services/note.service';
-import { NoteSignalRService } from 'src/app/shared/services/note.signalr.service';
 import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
 
 @Component({

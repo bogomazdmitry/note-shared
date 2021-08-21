@@ -2,6 +2,8 @@
 
 mat-card {
   padding: 11px;
+  border-style: solid;
+  border-width: thin;
 
   mat-card-header {
     $lines-title: 2;

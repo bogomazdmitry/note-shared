@@ -3,6 +3,7 @@
     <button mat-flat-button color="primary" routerLink="/">Shared notes</button>
   </span>
   <span class="flex-fill"></span>
+  <shared-theme-changer></shared-theme-changer>
   <div *ngIf="authService.isAuthorize(); else UnAuthorizeBlock">
     <button mat-flat-button color="primary" routerLink="/user/info">
       {{ userName }}

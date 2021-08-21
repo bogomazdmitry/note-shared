@@ -1,4 +1,6 @@
 @import "~bootstrap/scss/bootstrap";
+@import "../src/dark-theme.scss";
+@import "../src/light-theme.scss";
 
 html {
   position: relative;

@@ -1,9 +1,9 @@
 <mat-card
-  class="text-break border border-primary"
+  class="text-break"
   (mousedown)="onMouseDown($event)"
   (mouseup)="onMouseUp($event)"
   (click)="openDialog($event)"
-  [ngStyle]="{ 'background-color': note.noteDesign?.color }"
+  [ngStyle]="{ 'background-color': note.hexColor  }"
 >
   <mat-card-header>
     <mat-card-title>{{ note.noteText?.title }}</mat-card-title>

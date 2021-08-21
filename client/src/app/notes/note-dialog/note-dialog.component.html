@@ -1,4 +1,4 @@
-<div [style.background-color]="note.noteDesign?.color" class="wide-container box">
+<div [style.background-color]="this.note.hexColor" class="wide-container box">
   <h1 mat-dialog-title class="d-flex">
     <mat-form-field class="px-0 w-100">
       <input matInput [(ngModel)]="note.noteText.title" />
@@ -39,7 +39,8 @@
     </button>
     <mat-menu #colorPalette="matMenu" class="colorPalette">
       <color-circle
-        color="{{ note.noteDesign?.color || '' }}"
+        color="{{ note.hexColor }}"
+        [colors]="colorPaletteService.colors"
         (onChange)="changeColorHandler($event)"
       ></color-circle>
     </mat-menu>
@@ -56,8 +57,7 @@
         [selectable]="true"
         [removable]="true"
         (removed)="removeUser(userEmail)"
-        [color]="note.noteDesign?.color  "
-
+        [color]="note.hexColor"
       >
         <span class="email-note-card">
           {{ userEmail }}
