@@ -10,7 +10,7 @@ using NoteShared.Infrastructure.Data;
 namespace NoteShared.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210414111752_ChangeNameFieldTitle")]
+    [Migration("20210817141722_ChangeNameFieldTitle")]
     partial class ChangeNameFieldTitle
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -152,7 +152,7 @@ namespace NoteShared.Infrastructure.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("NoteShared.Domain.Core.NoteDesigns.NoteDesign", b =>
+            modelBuilder.Entity("NoteShared.Infrastructure.Data.Entity.NoteDesigns.NoteDesign", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -162,12 +162,18 @@ namespace NoteShared.Infrastructure.Data.Migrations
                     b.Property<string>("Color")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("NoteID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("NoteID")
+                        .IsUnique();
 
                     b.ToTable("NoteDesigns");
                 });
 
-            modelBuilder.Entity("NoteShared.Domain.Core.NoteHistories.NoteHistory", b =>
+            modelBuilder.Entity("NoteShared.Infrastructure.Data.Entity.NoteHistories.NoteHistory", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -188,41 +194,60 @@ namespace NoteShared.Infrastructure.Data.Migrations
                     b.ToTable("NoteHistories");
                 });
 
-            modelBuilder.Entity("NoteShared.Domain.Core.Notes.Note", b =>
+            modelBuilder.Entity("NoteShared.Infrastructure.Data.Entity.NoteTexts.NoteText", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DesignID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HistoryID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Tittle")
+                    b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("NoteText");
+                });
+
+            modelBuilder.Entity("NoteShared.Infrastructure.Data.Entity.Notes.Note", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("DesignID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("HistoryID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NoteTextID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("DesignID");
-
                     b.HasIndex("HistoryID")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[HistoryID] IS NOT NULL");
+
+                    b.HasIndex("NoteTextID");
 
                     b.HasIndex("UserID");
 
                     b.ToTable("Notes");
                 });
 
-            modelBuilder.Entity("NoteShared.Domain.Core.Users.User", b =>
+            modelBuilder.Entity("NoteShared.Infrastructure.Data.Entity.Users.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -298,7 +323,7 @@ namespace NoteShared.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("NoteShared.Domain.Core.Users.User", null)
+                    b.HasOne("NoteShared.Infrastructure.Data.Entity.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -307,7 +332,7 @@ namespace NoteShared.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("NoteShared.Domain.Core.Users.User", null)
+                    b.HasOne("NoteShared.Infrastructure.Data.Entity.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -322,7 +347,7 @@ namespace NoteShared.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NoteShared.Domain.Core.Users.User", null)
+                    b.HasOne("NoteShared.Infrastructure.Data.Entity.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -331,50 +356,64 @@ namespace NoteShared.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("NoteShared.Domain.Core.Users.User", null)
+                    b.HasOne("NoteShared.Infrastructure.Data.Entity.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("NoteShared.Domain.Core.Notes.Note", b =>
+            modelBuilder.Entity("NoteShared.Infrastructure.Data.Entity.NoteDesigns.NoteDesign", b =>
                 {
-                    b.HasOne("NoteShared.Domain.Core.NoteDesigns.NoteDesign", "Design")
-                        .WithMany("Notes")
-                        .HasForeignKey("DesignID")
+                    b.HasOne("NoteShared.Infrastructure.Data.Entity.Notes.Note", "Note")
+                        .WithOne("NoteDesign")
+                        .HasForeignKey("NoteShared.Infrastructure.Data.Entity.NoteDesigns.NoteDesign", "NoteID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NoteShared.Domain.Core.NoteHistories.NoteHistory", "History")
+                    b.Navigation("Note");
+                });
+
+            modelBuilder.Entity("NoteShared.Infrastructure.Data.Entity.Notes.Note", b =>
+                {
+                    b.HasOne("NoteShared.Infrastructure.Data.Entity.NoteHistories.NoteHistory", "NoteHistory")
                         .WithOne("Note")
-                        .HasForeignKey("NoteShared.Domain.Core.Notes.Note", "HistoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("NoteShared.Infrastructure.Data.Entity.Notes.Note", "HistoryID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("NoteShared.Domain.Core.Users.User", "User")
+                    b.HasOne("NoteShared.Infrastructure.Data.Entity.NoteTexts.NoteText", "NoteText")
+                        .WithMany("Notes")
+                        .HasForeignKey("NoteTextID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("NoteShared.Infrastructure.Data.Entity.Users.User", "User")
                         .WithMany("Notes")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.Navigation("Design");
+                    b.Navigation("NoteHistory");
 
-                    b.Navigation("History");
+                    b.Navigation("NoteText");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("NoteShared.Domain.Core.NoteDesigns.NoteDesign", b =>
-                {
-                    b.Navigation("Notes");
-                });
-
-            modelBuilder.Entity("NoteShared.Domain.Core.NoteHistories.NoteHistory", b =>
+            modelBuilder.Entity("NoteShared.Infrastructure.Data.Entity.NoteHistories.NoteHistory", b =>
                 {
                     b.Navigation("Note");
                 });
 
-            modelBuilder.Entity("NoteShared.Domain.Core.Users.User", b =>
+            modelBuilder.Entity("NoteShared.Infrastructure.Data.Entity.NoteTexts.NoteText", b =>
+                {
+                    b.Navigation("Notes");
+                });
+
+            modelBuilder.Entity("NoteShared.Infrastructure.Data.Entity.Notes.Note", b =>
+                {
+                    b.Navigation("NoteDesign");
+                });
+
+            modelBuilder.Entity("NoteShared.Infrastructure.Data.Entity.Users.User", b =>
                 {
                     b.Navigation("Notes");
                 });

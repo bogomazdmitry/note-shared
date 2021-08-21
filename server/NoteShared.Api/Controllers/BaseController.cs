@@ -19,7 +19,7 @@ namespace NoteShared.Api.Controllers
             }
         }
 
-        protected IActionResult ResultOf<TModel>(ServiceRespose<TModel> answer)
+        protected IActionResult ResultOf<TModel>(ServiceResponse<TModel> answer)
         {
             if (answer.Success)
             {
@@ -28,7 +28,7 @@ namespace NoteShared.Api.Controllers
             return BadRequest(answer.Error);
         }
 
-        protected IActionResult ResultOf(ServiceRespose answer)
+        protected IActionResult ResultOf(ServiceResponse answer)
         {
             if (answer.Success)
             {

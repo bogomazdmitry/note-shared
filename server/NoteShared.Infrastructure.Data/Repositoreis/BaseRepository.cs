@@ -3,6 +3,7 @@ using NoteShared.Infrastructure.Data.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace NoteShared.Infrastructure.Data.Repositories
@@ -34,7 +35,7 @@ namespace NoteShared.Infrastructure.Data.Repositories
             return entities;
         }
 
-        public IQueryable<TEntity> GetAllByQueryable(System.Linq.Expressions.Expression<Func<TEntity, bool>> expression, params System.Linq.Expressions.Expression<Func<TEntity, object>>[] includes)
+        public IQueryable<TEntity> GetAllByQueryable(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> query = _dbSet;
             foreach (var include in includes)
@@ -49,7 +50,7 @@ namespace NoteShared.Infrastructure.Data.Repositories
             return _dbSet.AsQueryable();
         }
 
-        public async Task<TEntity> GetByAsync(System.Linq.Expressions.Expression<Func<TEntity, bool>> expression)
+        public async Task<TEntity> GetByAsync(Expression<Func<TEntity, bool>> expression)
         {
             return await _dbSet.FirstOrDefaultAsync(expression);
         }

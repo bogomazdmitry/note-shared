@@ -9,9 +9,10 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { NoteService } from '../shared/services/note.service';
+import { Note } from '../shared/models/note.model';
 
 @Component({
-  selector: 'notes-notes',
+  selector: 'notes-notes-grid',
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss'],
 })
@@ -33,6 +34,14 @@ export class NotesComponent implements AfterViewInit, OnDestroy {
         this.muuriService.initGrid.bind(this.muuriService)
       );
     }
+  }
+
+  public createNote(): void {
+    this.noteService.createNote();
+  }
+
+  public getNotes(): Note[] {
+    return this.noteService.notes;
   }
 
   public ngOnDestroy(): void {

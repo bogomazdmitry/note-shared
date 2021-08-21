@@ -10,9 +10,9 @@ namespace NoteShared.Api.Hubs
     [Authorize]
     public class NoteHub : Hub
     {
-        private readonly NoteService _noteService;
+        private readonly INoteService _noteService;
 
-        public NoteHub(NoteService noteService)
+        public NoteHub(INoteService noteService)
         {
             _noteService = noteService;
         }
@@ -20,11 +20,15 @@ namespace NoteShared.Api.Hubs
         public async Task UpdateNoteText(NoteTextDto noteDtoText)
         {
             var currentUser = Context.User;
-            var currentID = currentUser.FindFirst(i => i.Type == JwtClaimTypes.Subject).Value;
-            var usersID = (await _noteService.GetUserIDsByNoteTextID(currentID, noteDtoText.ID)).ModelRequest;
-            usersID.Remove(currentID);
-            var result = await _noteService.UpdateNoteText(currentID, noteDtoText);
-            await Clients.Users(usersID).SendAsync("UpdateNoteText", noteDtoText);
+            var currentUserID = currentUser.FindFirst(i => i.Type == JwtClaimTypes.Subject).Value;
+            var serviceResponceUserIDList = await _noteService.GetUserIDListByNoteTextID(currentUserID, noteDtoText.ID);
+            if(serviceResponceUserIDList.Success)
+            {
+                var userIDList = serviceResponceUserIDList.ModelRequest;
+                userIDList.Remove(currentUserID);
+                var result = await _noteService.UpdateNoteText(currentUserID, noteDtoText);
+                await Clients.Users(userIDList).SendAsync("UpdateNoteText", noteDtoText);
+            }
         }
     }
 }

@@ -4,7 +4,6 @@ import { NoteText } from './note-text.model';
 
 export interface Note {
   id: number;
-  number: number;
   order: number;
   noteDesign: NoteDesign | undefined;
   noteHistory: NoteHistory | undefined;

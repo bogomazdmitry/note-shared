@@ -7,9 +7,9 @@ namespace NoteShared.Api.Configuration
     {
         public static void AddServices(this IServiceCollection services)
         {
-            services.AddScoped<AuthService>();
-            services.AddScoped<UserService>();
-            services.AddScoped<NoteService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<INoteService, NoteService>();
         }
     }
 }

@@ -75,7 +75,7 @@ export class SignUpFormService extends BaseFormService {
       },
       confirmPassword: {
         required: { required: true },
-        mastMatch: { mastMatch: true },
+        mustMatch: { mustMatch: true },
       },
     };
   }

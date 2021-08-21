@@ -63,19 +63,15 @@ namespace Api
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
             
-            
-
-
             services.AddIdentity(Configuration);
 
             services.AddIdentityServer(Configuration, _hostEnvironment);
 
             services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-            })
-
+                {
+                    options.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                })
                 .AddLocalApi(options =>
                 {
                     options.ExpectedScope = IdentityServerConstants.LocalApi.ScopeName;
@@ -83,7 +79,7 @@ namespace Api
                 })
                 .AddIdentityServerAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme, options =>
                 {
-                    options.Authority = "http://localhost:5000";
+                    options.Authority = Configuration.GetValue<string>("ServerUrl");
                     options.SupportedTokens = SupportedTokens.Jwt;
                     options.RequireHttpsMetadata = false;
                     options.ApiName = IdentityServerConstants.LocalApi.ScopeName;

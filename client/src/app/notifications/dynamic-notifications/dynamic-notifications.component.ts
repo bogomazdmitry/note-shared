@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { BaseNotification } from 'src/app/shared/models/base-notification.model';
 import { NotificationsService } from 'src/app/shared/services/notifications.service';
-import { BaseNotificationComponent } from '../base-notification/base-notification.component';
+import { NotificationDynamicComponent } from '../base-notification/notification.dynamic-component';
 import { MenuNotificationDirective } from '../menu-notification.directive';
 
 @Component({
@@ -35,16 +35,20 @@ export class DynamicNotificationsComponent implements OnInit {
   public loadNotifications(): void {
     const viewContainerRef = this.menuNotification.viewContainerRef;
     viewContainerRef.clear();
-    this.notifications.forEach((adItem) => {
-      const componentFactory =
-        this.componentFactoryResolver.resolveComponentFactory(adItem.component);
+    if (this.notifications) {
+      this.notifications.forEach((adItem) => {
+        const componentFactory =
+          this.componentFactoryResolver.resolveComponentFactory(
+            adItem.component
+          );
 
-      const componentRef =
-        viewContainerRef.createComponent<BaseNotificationComponent>(
-          componentFactory
-        );
-      componentRef.instance.notification = adItem.notification;
-    });
-    this.changingCountNotificationsEvent.emit(this.notifications.length);
+        const componentRef =
+          viewContainerRef.createComponent<NotificationDynamicComponent>(
+            componentFactory
+          );
+        componentRef.instance.notification = adItem.notification;
+      });
+      this.changingCountNotificationsEvent.emit(this.notifications.length);
+    }
   }
 }

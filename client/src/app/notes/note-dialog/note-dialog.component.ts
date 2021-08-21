@@ -9,9 +9,11 @@ import {
 } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserService } from 'src/app/shared/services/user.service';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { ColorEvent } from 'ngx-color';
 
 @Component({
-  selector: 'note-dialog',
+  selector: 'notes-note-dialog',
   templateUrl: 'note-dialog.component.html',
 })
 export class NoteDialogComponent implements OnInit {
@@ -25,7 +27,11 @@ export class NoteDialogComponent implements OnInit {
     public note: Note,
     private readonly noteService: NoteService,
     private readonly userService: UserService
-  ) {}
+  ) {
+    if (!this.note.noteText) {
+      this.note.noteText = { id: -1, title: '', text: '' };
+    }
+  }
 
   public ngOnInit(): void {
     this.noteService
@@ -46,7 +52,7 @@ export class NoteDialogComponent implements OnInit {
     this.dialogReference.close(null);
   }
 
-  public changeColorHandler($event: any): void {
+  public changeColorHandler($event: ColorEvent): void {
     if (!this.note.noteDesign) {
       this.note.noteDesign = { color: $event.color.hex };
     } else {
@@ -67,7 +73,7 @@ export class NoteDialogComponent implements OnInit {
     }
   }
 
-  public addUser($event: any): void {
+  public addUser($event: MatChipInputEvent): void {
     this.noteService
       .addSharedUser($event.value, this.note.noteText.id)
       .subscribe(() => {

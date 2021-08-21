@@ -12,15 +12,15 @@ using static IdentityServer4.IdentityServerConstants;
 namespace Api.Controllers
 {
     [Route("api/notes")]
-    [Authorize]
+    [Authorize(LocalApi.PolicyName)]
     [ApiController]
     public class NotesController : BaseController
     {
-        private readonly ILogger<NoteController> _logger;
+        private readonly ILogger<NotesController> _logger;
 
-        private readonly NoteService _noteService;
+        private readonly INoteService _noteService;
 
-        public NotesController(ILogger<NoteController> logger, NoteService noteService)
+        public NotesController(ILogger<NotesController> logger, INoteService noteService)
         {
             _logger = logger;
             _noteService = noteService;

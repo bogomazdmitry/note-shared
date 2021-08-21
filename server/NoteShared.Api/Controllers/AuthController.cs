@@ -9,18 +9,18 @@ namespace NoteShared.Api.Controllers
     [ApiController] 
     public class AuthController : BaseController
     {
-        private readonly AuthService _authService;
+        private readonly IAuthService _authService;
 
-        public AuthController(AuthService authService)
+        public AuthController(IAuthService authService)
         {
             _authService = authService;
         }
 
         [HttpPost]
         [Route("signup")]
-        public async Task<IActionResult> SignUp([FromBody] SignUpUserRequest signUnUser)
+        public async Task<IActionResult> SignUp([FromBody] SignUpUserRequest signUpUser)
         {
-            var result = await _authService.SignUp(signUnUser);
+            var result = await _authService.SignUp(signUpUser);
             return ResultOf(result);
         }
 

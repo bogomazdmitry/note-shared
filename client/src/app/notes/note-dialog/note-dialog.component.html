@@ -1,7 +1,7 @@
 <div class="wide-container box">
   <h1 mat-dialog-title class="d-flex">
     <mat-form-field class="px-0 w-100">
-      <input matInput [(ngModel)]="this.note.noteText.tittle" />
+      <input matInput [(ngModel)]="note.noteText.title" />
     </mat-form-field>
     <button
       mat-icon-button
@@ -23,7 +23,7 @@
   <mat-dialog-content class="h-100">
     <div mat-dialog-content class="h-100">
       <mat-form-field class="w-100 h-100">
-        <textarea matInput [(ngModel)]="this.note.noteText.text"> </textarea>
+        <textarea matInput [(ngModel)]="note.noteText.text"> </textarea>
       </mat-form-field>
     </div>
   </mat-dialog-content>
@@ -56,7 +56,7 @@
         [selectable]="true"
         [removable]="true"
         (removed)="removeUser(userEmail)"
-        [color]="this.note.noteDesign?.color  "
+        [color]="note.noteDesign?.color  "
 
       >
         <span class="email-note-card">

@@ -1,9 +1,9 @@
 <mat-toolbar class="mb-4" color="primary">
   <span>
-    <button mat-flat-button color="primary" routerLink="/">UNotes</button>
+    <button mat-flat-button color="primary" routerLink="/">Shared notes</button>
   </span>
-  <span class="toolbar-spacer"></span>
-  <div *ngIf="this.authService.isAuthorize(); else UnAuthorizeBlock">
+  <span class="flex-fill"></span>
+  <div *ngIf="authService.isAuthorize(); else UnAuthorizeBlock">
     <button mat-flat-button color="primary" routerLink="/user/info">
       {{ userName }}
       <mat-icon aria-hidden="false" aria-label="Account">
@@ -13,7 +13,7 @@
     <button
       mat-flat-button
       color="primary"
-      (click)="this.authService.signOut()"
+      (click)="authService.signOut()"
       aria-label="Sign out"
     >
       Sign out
@@ -26,8 +26,8 @@
       routerLink="/user/signin"
       [queryParams]="{
         backUrl:
-          this.activatedRouter.snapshot.queryParams['backUrl'] ||
-          this.router.url
+          activatedRouter.snapshot.queryParams['backUrl'] ||
+          router.url
       }"
       aria-label="Sign in"
     >

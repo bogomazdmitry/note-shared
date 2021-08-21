@@ -1,15 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System.Linq;
 using System.Threading.Tasks;
 using NoteShared.DTO;
 using NoteShared.Infrastructure.Data.Entity.Users;
 using System;
-using NoteShared.DTO.Mapping;
 using AutoMapper;
 
 namespace NoteShared.Services.Interfaces
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
@@ -20,14 +18,14 @@ namespace NoteShared.Services.Interfaces
             _mapper = mapper;
         }
 
-        public async Task<ServiceRespose<UserInfoResponse>> GetUserInfo(string userId)
+        public async Task<ServiceResponse<UserInfoResponse>> GetUserInfo(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
             UserInfoResponse userInfo = _mapper.Map<User, UserInfoResponse>(user);
-            return new ServiceRespose<UserInfoResponse>(userInfo);
+            return new ServiceResponse<UserInfoResponse>(userInfo);
         }
 
-        public async Task<ServiceRespose<UserInfoResponse>> SetUserInfo(ChangeUserInfoRequest userInfo, string userId)
+        public async Task<ServiceResponse<UserInfoResponse>> SetUserInfo(ChangeUserInfoRequest userInfo, string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (!String.IsNullOrEmpty(userInfo.NewPassword))
@@ -35,10 +33,10 @@ namespace NoteShared.Services.Interfaces
                 var identityChangePasswordResult = await _userManager.ChangePasswordAsync(user, userInfo.OldPassword, userInfo.NewPassword);
                 if (!identityChangePasswordResult.Succeeded)
                 {
-                    return new ServiceRespose<UserInfoResponse>("oldPassword mastMatch");
+                    return new ServiceResponse<UserInfoResponse>("oldPassword mustMatch");
                 }
             }
-            return new ServiceRespose<UserInfoResponse>(_mapper.Map<User, UserInfoResponse>(user));
+            return new ServiceResponse<UserInfoResponse>(_mapper.Map<User, UserInfoResponse>(user));
         }
     }
 }

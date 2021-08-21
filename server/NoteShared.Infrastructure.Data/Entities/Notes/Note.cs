@@ -25,7 +25,7 @@ namespace NoteShared.Infrastructure.Data.Entity.Notes
 
         public virtual NoteHistory NoteHistory { get; set; }
 
-        public virtual string UserID { get; set; }
+        public string UserID { get; set; }
 
         public virtual User User { get; set; }
     }

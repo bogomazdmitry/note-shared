@@ -16,11 +16,12 @@ export class HeaderComponent implements OnInit {
     public readonly authService: AuthService,
     public readonly router: Router,
     public readonly activatedRouter: ActivatedRoute,
-  ) {}
+  ) {
+  }
 
   public ngOnInit(): void {
     if (this.authService.isAuthorize()) {
-      this.userName =  this.userService.getUser()?.userName;
+      this.userName = this.userService.getUser()?.userName;
     }
   }
 }

@@ -6,10 +6,6 @@
 
         public int Order { get; set; }
 
-        public string Tittle { get; set; }
-
-        public string Text { get; set; }
-
         public NoteTextDto NoteText { get; set; }
 
         public NoteDesignDto NoteDesign { get; set; }

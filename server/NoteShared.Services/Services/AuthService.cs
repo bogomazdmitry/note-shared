@@ -6,7 +6,7 @@ using NoteShared.Infrastructure.Data.Entity.Users;
 
 namespace NoteShared.Services.Interfaces
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
         private readonly IRepositioryUsers _repositioryUser;
 
@@ -18,43 +18,43 @@ namespace NoteShared.Services.Interfaces
             _userManager = userManager;
         }
 
-        public async Task<ServiceRespose<SignUpUserRequest>> SignUp(SignUpUserRequest signUpUser)
+        public async Task<ServiceResponse<SignUpUserRequest>> SignUp(SignUpUserRequest signUpUser)
         {
             var user = new User { Email = signUpUser.Email, UserName = signUpUser.UserName};
             var emalUnique = await CheckUniqueEmail(user.Email);
             if (!emalUnique.Success)
             {
-                return new ServiceRespose<SignUpUserRequest>(emalUnique);
+                return new ServiceResponse<SignUpUserRequest>(emalUnique);
             }
             var userNameUnique = await CheckUniqueUserName(user.UserName);
             if (!userNameUnique.Success)
             {
-                return new ServiceRespose<SignUpUserRequest>(userNameUnique);
+                return new ServiceResponse<SignUpUserRequest>(userNameUnique);
             }
             var identityResult = await _userManager.CreateAsync(user, signUpUser.Password);
             if(!identityResult.Succeeded)
             {
-                return new ServiceRespose<SignUpUserRequest>("password badVaildation");
+                return new ServiceResponse<SignUpUserRequest>("password badValidation");
             }
-            return new ServiceRespose<SignUpUserRequest>(signUpUser);
+            return new ServiceResponse<SignUpUserRequest>(signUpUser);
         }
 
-        public async Task<ServiceRespose> CheckUniqueEmail(string email)
+        public async Task<ServiceResponse> CheckUniqueEmail(string email)
         {
             if (_repositioryUser.GetAllByQueryable(e => e.Email == email).Any())
             {
-                return new ServiceRespose("email notUnique");
+                return new ServiceResponse("email notUnique");
             }
-            return new ServiceRespose();
+            return new ServiceResponse();
         }
 
-        public async Task<ServiceRespose> CheckUniqueUserName(string userName)
+        public async Task<ServiceResponse> CheckUniqueUserName(string userName)
         {
             if (_repositioryUser.GetAllByQueryable(e => e.UserName == userName).Any())
             {
-                return new ServiceRespose("userName notUnique");
+                return new ServiceResponse("userName notUnique");
             }
-            return new ServiceRespose();
+            return new ServiceResponse();
         }
     }
 }

@@ -1,9 +1,14 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 
 namespace NoteShared.Infrastructure.Data.Entity.Notes
 {
     public interface IRepositoryNotes : IBaseRepository<Note>
     {
-        public IQueryable<string> GetUsersID(int noteID);
+        int GetMinimalNoteOrder(string userID);
+
+        Task<bool> HasAccessForUser(int noteID, string userID);
+
+        bool HasNote(string userID);
     }
 }

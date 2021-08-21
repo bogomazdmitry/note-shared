@@ -4,7 +4,7 @@ using NoteShared.DTO.Mapping;
 
 namespace NoteShared.Api.Configuration
 {
-    public static class AutoMapperExtenrions
+    public static class AutoMapperExtentions
     {
         public static void AddAutoMapper(this IServiceCollection services)
         {

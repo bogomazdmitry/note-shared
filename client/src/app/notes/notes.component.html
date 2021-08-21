@@ -1,14 +1,14 @@
 <div class="buttons-panel">
   <div class="add-note">
-    <button mat-button (click)="this.noteService.createNote()">
+    <button mat-button (click)="createNote()">
       <mat-icon class="mx-1">add</mat-icon>
       Add new note
     </button>
   </div>
-  <notifications-notifications> </notifications-notifications>
+  <notifications-home> </notifications-home>
 </div>
 <div #gridElement class="grid hide">
-  <div #notes class="item col p-1" *ngFor="let note of noteService.notes">
+  <div class="item col p-1" *ngFor="let note of getNotes()">
     <div class="item-content">
       <notes-note [note]="note"></notes-note>
     </div>

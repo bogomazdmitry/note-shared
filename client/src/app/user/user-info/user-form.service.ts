@@ -124,7 +124,7 @@ export class UserFormService extends BaseFormService {
         hasLowerCase: { hasLowerCase: true },
         hasNumber: { hasNumber: true },
         hasLength: { hasLength: true },
-        mastMatch: { mastMatch: true },
+        mustMatch: { mustMatch: true },
       },
       newPassword: {
         hasUpperCase: { hasUpperCase: true },
@@ -134,7 +134,7 @@ export class UserFormService extends BaseFormService {
       },
       confirmPassword: {
         required: { required: true },
-        mastMatch: { mastMatch: true },
+        mustMatch: { mustMatch: true },
       },
     };
   }

@@ -1,37 +1,37 @@
 ﻿namespace NoteShared.DTO
 {
-    public class ServiceRespose<TModel>
+    public class ServiceResponse<TModel>
     {
-        public ServiceRespose() {}
+        public ServiceResponse() {}
 
-        public ServiceRespose(string error)
+        public ServiceResponse(string error)
         {
             Error = error;
             Success = false;
         }
 
-        public ServiceRespose(TModel modelRequest)
+        public ServiceResponse(TModel modelRequest)
         {
             ModelRequest = modelRequest;
             Success = true;
         }
 
-        public ServiceRespose(ServiceRespose answerRequest)
+        public ServiceResponse(ServiceResponse answerRequest)
         {
             Error = answerRequest.Error;
             Success = answerRequest.Success;
         }
 
-        public ServiceRespose convertToServiceRespose()
+        public ServiceResponse convertToServiceRespose()
         {
-            ServiceRespose serviceRespose;
+            ServiceResponse serviceRespose;
             if (Success)
             {
-                serviceRespose = new ServiceRespose();
+                serviceRespose = new ServiceResponse();
             }
             else
             {
-                serviceRespose = new ServiceRespose(Error);
+                serviceRespose = new ServiceResponse(Error);
             }
             return serviceRespose;
         }

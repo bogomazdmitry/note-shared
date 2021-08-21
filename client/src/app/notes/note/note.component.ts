@@ -30,12 +30,12 @@ export class NoteComponent {
     private readonly muuriService: MuuriService
   ) {}
 
-  public onMouseDown($event: any): void {
+  public onMouseDown($event: MouseEvent): void {
     this.mousePosition.x = $event.screenX;
     this.mousePosition.y = $event.screenY;
   }
 
-  public onMouseUp($event: any): void {
+  public onMouseUp($event: MouseEvent): void {
     if (
       this.mousePosition.x !== $event.screenX &&
       this.mousePosition.y !== $event.screenY
@@ -44,7 +44,7 @@ export class NoteComponent {
     }
   }
 
-  public openDialog($event: any): void {
+  public openDialog($event: MouseEvent): void {
     if (
       !this.dialogIsOpened &&
       this.mousePosition.x === $event.screenX &&
@@ -60,14 +60,13 @@ export class NoteComponent {
         panelClass: 'note-dialog-container',
         scrollStrategy: this.overlay.scrollStrategies.noop(),
       });
-      const sub = dialogRef.afterClosed().subscribe((result) => {
+      dialogRef.afterClosed().subscribe((result) => {
         this.dialogIsOpened = false;
         if (result) {
           this.noteService.updateNote(result);
         } else {
           this.noteService.deleteNote(this.note.id);
         }
-        sub.unsubscribe();
       });
     }
   }

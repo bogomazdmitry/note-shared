@@ -11,9 +11,9 @@ namespace NoteShared.Api.Controllers
     [ApiController]
     public class UserController : BaseController
     {
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
 
-        public UserController(UserService userService)
+        public UserController(IUserService userService)
         {
             _userService = userService;
         }

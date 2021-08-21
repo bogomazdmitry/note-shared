@@ -1,14 +1,14 @@
 ﻿namespace NoteShared.DTO
 {
-    public class ServiceRespose
+    public class ServiceResponse
     {
 
-        public ServiceRespose() 
+        public ServiceResponse() 
         {
             Success = true;
         }
 
-        public ServiceRespose(string error)
+        public ServiceResponse(string error)
         {
             Error = error;
             Success = false;

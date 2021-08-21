@@ -1,25 +1,12 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'notifications-notifications',
+  selector: 'notifications-home',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss'],
 })
-export class NotificationsComponent implements OnInit, AfterViewInit {
+export class NotificationsComponent {
   public countNotifications = 0;
-
-  public constructor(private readonly changeDetectorRef: ChangeDetectorRef) {}
-
-  public ngOnInit(): void {}
-
-  public ngAfterViewInit(): void {
-    this.changeDetectorRef.detectChanges();
-  }
 
   public setCountNotification(event: number): void {
     this.countNotifications = event;

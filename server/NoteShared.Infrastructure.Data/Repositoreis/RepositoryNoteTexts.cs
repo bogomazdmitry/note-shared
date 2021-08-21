@@ -1,5 +1,6 @@
 ﻿using NoteShared.Infrastructure.Data.Entity.Notes;
 using NoteShared.Infrastructure.Data.Entity.NoteTexts;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NoteShared.Infrastructure.Data.Repositories
@@ -11,14 +12,31 @@ namespace NoteShared.Infrastructure.Data.Repositories
         {
         }
 
-        public IQueryable<string> GetUserIDsAsQueryable(int noteTextID)
+        public List<string> GetUserIDList(int noteTextID)
         {
-            return _context.Set<Note>().Where(el => el.NoteTextID == noteTextID).Select(e => e.UserID);
+            return _context
+                .Set<Note>()
+                .Where(note => note.NoteTextID == noteTextID)
+                .Select(note => note.UserID)
+                .ToList();
         }
 
-        public IQueryable<string> GetUserEmailsAsQueryable(int noteTextID)
+        public List<string> GetUserEmailList(int noteTextID)
         {
-            return _context.Set<Note>().Where(el => el.NoteTextID == noteTextID).Select(e => e.User.Email);
+            return _context
+                .Set<Note>()
+                .Where(note => note.NoteTextID == noteTextID)
+                .Select(note => note.User.Email)
+                .ToList();
+        }
+
+        public bool HasAccessForUser(int noteTextID, string userID)
+        {
+            return _context
+                .Set<Note>()
+                .Where(note => note.NoteTextID == noteTextID)
+                .Select(note => note.UserID)
+                .Contains(userID);
         }
     }
 }
