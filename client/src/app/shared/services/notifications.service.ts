@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseNotification } from '../models/base-notification.model';
-import { NoteNotificationComponent } from 'src/app/notifications/note-notification/note-notification.component';
+import { NoteNotificationComponent } from 'src/app/notifications/template-notification/template-notification.component';
 import { NotificationsDataService } from './notifications.data.service';
 
 @Injectable({
@@ -11,5 +11,7 @@ export class NotificationsService {
 
   constructor(
     private readonly notificationsDataService: NotificationsDataService
-  ) {}
+  ) {
+    this.notifications = [new BaseNotification(NoteNotificationComponent, { email: 'dima@yandex.ru'})];
+  }
 }
