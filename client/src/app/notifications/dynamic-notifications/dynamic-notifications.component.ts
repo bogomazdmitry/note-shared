@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { BaseNotification } from 'src/app/shared/models/base-notification.model';
 import { NotificationsService } from 'src/app/shared/services/notifications.service';
-import { NotificationDynamicComponent } from '../base-notification/notification.dynamic-component';
 import { MenuNotificationDirective } from '../menu-notification.directive';
 
 @Component({
@@ -43,7 +42,7 @@ export class DynamicNotificationsComponent implements OnInit {
           );
 
         const componentRef =
-          viewContainerRef.createComponent<NotificationDynamicComponent>(
+          viewContainerRef.createComponent<BaseNotification>(
             componentFactory
           );
         componentRef.instance.notification = adItem.notification;

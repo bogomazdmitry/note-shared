@@ -7,9 +7,9 @@ mat-form-field {
 }
 
 .colorPalette.mat-menu-panel {
-  border-radius: 15px !important;
+  border-radius: 15px;
   padding: 5px;
-  overflow: hidden !important;
+  overflow: hidden;
 }
 
 @import "~bootstrap/scss/bootstrap-grid.scss";
@@ -20,6 +20,7 @@ mat-form-field {
 
 .note-dialog-container {
   padding: 5px;
+
   @include media-breakpoint-down(md) {
     width: 100% !important;
     height: 100% !important;
@@ -30,26 +31,28 @@ mat-form-field {
     resize: both;
     overflow: auto;
   }
-  max-width: none !important;
 
   .mat-form-field-infix {
-    width: auto !important;
-    border-top: 0 !important;
+    width: auto;
+    border-top: 0;
     height: 100%;
   }
 
   .mat-dialog-title {
-    margin-bottom: 0px !important;
+    margin-bottom: 0px;
   }
 
   .drag-indicator {
     @include media-breakpoint-down(md) {
-      display: none !important;
+      display: none;
     }
   }
 
+  textarea.mat-input-element {
+    resize: none;
+  }
+
   textarea {
-    resize: none !important;
     height: 100%;
   }
 
@@ -57,6 +60,7 @@ mat-form-field {
     display: flex;
     height: 100%;
     flex-direction: column;
+    padding: 24px;
   }
 
   .mat-form-field-wrapper {
@@ -68,7 +72,7 @@ mat-form-field {
   }
 
   .mat-dialog-content {
-    max-height: none !important;
+    max-height: none;
   }
 
   .mat-dialog-container {
@@ -82,11 +86,15 @@ mat-form-field {
     overflow-y: hidden;
     overflow-x: scroll;
     .mat-chip-list-wrapper {
-      flex-wrap: nowrap !important;
+      flex-wrap: nowrap;
     }
     .email-note-card {
       overflow: hidden;
       white-space: nowrap;
     }
   }
+}
+
+.note-dialog-container .mat-dialog-container {
+  padding: 0px;
 }

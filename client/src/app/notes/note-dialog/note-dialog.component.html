@@ -1,4 +1,4 @@
-<div class="wide-container box">
+<div [style.background-color]="note.noteDesign?.color" class="wide-container box">
   <h1 mat-dialog-title class="d-flex">
     <mat-form-field class="px-0 w-100">
       <input matInput [(ngModel)]="note.noteText.title" />

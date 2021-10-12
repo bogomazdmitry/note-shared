@@ -56,6 +56,8 @@ export class NoteComponent {
         disableClose: true,
         hasBackdrop: false,
         height: '500px',
+        maxWidth: 'none',
+        maxHeight: 'none',
         width: '780px',
         panelClass: 'note-dialog-container',
         scrollStrategy: this.overlay.scrollStrategies.noop(),

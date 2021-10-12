@@ -40,7 +40,6 @@ export class NoteDialogComponent implements OnInit {
         const currentEmail = this.userService.getUser()?.email;
         this.userEmails = result.filter((e) => e !== currentEmail);
       });
-    this.changeDialogColor(this.note.noteDesign?.color || '');
   }
 
   public saveNote(): void {
@@ -58,7 +57,6 @@ export class NoteDialogComponent implements OnInit {
     } else {
       this.note.noteDesign.color = $event.color.hex;
     }
-    this.changeDialogColor($event.color.hex);
     this.noteService
       .updateNoteDesign(this.note.noteDesign, this.note.id)
       .subscribe((result) => {
@@ -66,12 +64,6 @@ export class NoteDialogComponent implements OnInit {
       });
   }
 
-  public changeDialogColor(color: string): void {
-    const dialog = document.getElementById(this.dialogReference.id);
-    if (dialog) {
-      dialog.style.backgroundColor = color;
-    }
-  }
 
   public addUser($event: MatChipInputEvent): void {
     this.noteService
