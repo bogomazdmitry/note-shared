@@ -1,0 +1,26 @@
+@import "~bootstrap/scss/bootstrap";
+
+html {
+  position: relative;
+  min-height: 100%;
+
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+    cursor: default;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: gray;
+    border-radius: 5px;
+  }
+}
+
+body {
+  margin: 0;
+  margin-bottom: 90px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@import "../src/app/notes/note-dialog/note-dialog.component.scss";

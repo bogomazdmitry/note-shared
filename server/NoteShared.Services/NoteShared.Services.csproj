@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>NoteShared.Services.Interfaces</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NoteShared.DTO\NoteShared.DTO.csproj" />
+    <ProjectReference Include="..\NoteShared.Infrastructure.Data\NoteShared.Infrastructure.Data.csproj" />
+  </ItemGroup>
+
+</Project>

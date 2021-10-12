@@ -1,0 +1,41 @@
+@import '../../../variables.scss';
+
+mat-card {
+  padding: 11px;
+
+  mat-card-header {
+    $lines-title: 2;
+    mat-card-title {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      -ms-line-clamp: $lines-title;
+      -webkit-line-clamp: $lines-title;
+      line-clamp: $lines-title;
+      display: -webkit-box;
+      word-wrap: break-word;
+      -webkit-box-orient: vertical;
+      box-orient: vertical;
+      width: 100%;
+      font-size: $font-size-note-title;
+    }
+  }
+
+  mat-card-content {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -ms-line-clamp: $lines-content-note;
+    -webkit-line-clamp: $lines-content-note;
+    line-clamp: $lines-content-note;
+    display: -webkit-box;
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    width: 100%;
+    font-size: $font-size-note-text;
+  }
+}
+
+div.mat-card-header-text {
+  margin-left: 0%;
+  margin-right: 0%;
+}
