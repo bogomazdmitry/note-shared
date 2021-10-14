@@ -5,7 +5,7 @@ namespace Api
 {
     public class CustomUserIdProvider : IUserIdProvider
     {
-        public CustomUserIdProvider() {}
+        public CustomUserIdProvider() { }
 
         public string GetUserId(HubConnectionContext connection)
         {

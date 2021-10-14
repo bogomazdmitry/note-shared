@@ -62,7 +62,7 @@ namespace Api
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
-            
+
             services.AddIdentity(Configuration);
 
             services.AddIdentityServer(Configuration, _hostEnvironment);

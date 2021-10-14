@@ -20,7 +20,7 @@ namespace NoteShared.Services.Interfaces
 
         public async Task<ServiceResponse<SignUpUserRequest>> SignUp(SignUpUserRequest signUpUser)
         {
-            var user = new User { Email = signUpUser.Email, UserName = signUpUser.UserName};
+            var user = new User { Email = signUpUser.Email, UserName = signUpUser.UserName };
             var emalUnique = await CheckUniqueEmail(user.Email);
             if (!emalUnique.Success)
             {
@@ -32,7 +32,7 @@ namespace NoteShared.Services.Interfaces
                 return new ServiceResponse<SignUpUserRequest>(userNameUnique);
             }
             var identityResult = await _userManager.CreateAsync(user, signUpUser.Password);
-            if(!identityResult.Succeeded)
+            if (!identityResult.Succeeded)
             {
                 return new ServiceResponse<SignUpUserRequest>("password badValidation");
             }

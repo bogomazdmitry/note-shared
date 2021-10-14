@@ -22,7 +22,7 @@ namespace NoteShared.Api.Hubs
             var currentUser = Context.User;
             var currentUserID = currentUser.FindFirst(i => i.Type == JwtClaimTypes.Subject).Value;
             var serviceResponceUserIDList = await _noteService.GetUserIDListByNoteTextID(currentUserID, noteDtoText.ID);
-            if(serviceResponceUserIDList.Success)
+            if (serviceResponceUserIDList.Success)
             {
                 var userIDList = serviceResponceUserIDList.ModelRequest;
                 userIDList.Remove(currentUserID);

@@ -6,7 +6,7 @@ using NoteShared.DTO;
 namespace NoteShared.Api.Controllers
 {
     [Route("api/auth/")]
-    [ApiController] 
+    [ApiController]
     public class AuthController : BaseController
     {
         private readonly IAuthService _authService;

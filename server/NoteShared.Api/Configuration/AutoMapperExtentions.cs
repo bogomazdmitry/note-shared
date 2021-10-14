@@ -8,7 +8,8 @@ namespace NoteShared.Api.Configuration
     {
         public static void AddAutoMapper(this IServiceCollection services)
         {
-            var mappingConfig = new MapperConfiguration(mc => {
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
                 mc.AddProfile(new UserProfile());
                 mc.AddProfile(new NoteProfile());
             });

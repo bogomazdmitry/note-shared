@@ -7,7 +7,7 @@ namespace NoteShared.Infrastructure.Data.Repositories
 {
     public class RepositoryNoteTexts : BaseRepository<NoteText>, IRepositoryNoteTexts
     {
-        public RepositoryNoteTexts(ApplicationContext context) 
+        public RepositoryNoteTexts(ApplicationContext context)
             : base(context)
         {
         }

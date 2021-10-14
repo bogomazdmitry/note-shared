@@ -14,7 +14,8 @@ namespace NoteShared.Api.Configuration.Identity
     {
         public static void AddIdentity(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddIdentity<User, IdentityRole>(options => {
+            services.AddIdentity<User, IdentityRole>(options =>
+            {
                 options.Password.RequireNonAlphanumeric = false;
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequiredLength = 8;

@@ -23,12 +23,13 @@ namespace NoteShared.Services.Interfaces
         private readonly IMapper _mapper;
 
         public NoteService(
-            IRepositoryNotes repositoryNotes, 
-            IRepositoryNoteDesigns repositoryNoteDesigns, 
-            IRepositoryNoteTexts repositoryNoteTexts, 
-            IRepositioryUsers repositoryUsers, 
+            IRepositoryNotes repositoryNotes,
+            IRepositoryNoteDesigns repositoryNoteDesigns,
+            IRepositoryNoteTexts repositoryNoteTexts,
+            IRepositioryUsers repositoryUsers,
             IMapper mapper
-        ) {
+        )
+        {
             _repositoryNotes = repositoryNotes;
             _repositoryNotesDesigns = repositoryNoteDesigns;
             _repositoryNoteTexts = repositoryNoteTexts;
@@ -48,7 +49,7 @@ namespace NoteShared.Services.Interfaces
 
         public async Task<ServiceResponse<NoteDto>> GetNote(string userID, int noteID)
         {
-            if (!(await _repositoryNotes.HasAccessForUser(noteID, userID)))      
+            if (!(await _repositoryNotes.HasAccessForUser(noteID, userID)))
             {
                 return new ServiceResponse<NoteDto>("Not allowed");
             }
@@ -122,7 +123,7 @@ namespace NoteShared.Services.Interfaces
                 return new ServiceResponse<NoteDesignDto>("Not allowed");
             }
 
-            var oldNoteDesign = await _repositoryNotesDesigns.GetByAsync(el=>el.NoteID == updateNoteDesignDto.NoteID);
+            var oldNoteDesign = await _repositoryNotesDesigns.GetByAsync(el => el.NoteID == updateNoteDesignDto.NoteID);
             NoteDesign updatedNoteDesign;
             if (oldNoteDesign == null)
             {
@@ -141,7 +142,8 @@ namespace NoteShared.Services.Interfaces
         public async Task<ServiceResponse<IEnumerable<NoteOrderDto>>> UpdateOrderNotes(string userID, IEnumerable<NoteOrderDto> noteOrderDtoList)
         {
             var noteList = _repositoryNotes.GetAllByQueryable(note => note.UserID == userID).ToList();
-            noteList.AsParallel().ForAll(note => {
+            noteList.AsParallel().ForAll(note =>
+            {
                 note.Order = noteOrderDtoList.FirstOrDefault(noteOrder => noteOrder.ID == note.ID)?.Order ?? -1;
             });
 
@@ -172,7 +174,7 @@ namespace NoteShared.Services.Interfaces
             var userList = _repositoryNoteTexts.GetUserEmailList(noteTextID);
             return new ServiceResponse<List<string>>(userList);
         }
-        
+
         public async Task<ServiceResponse> AddSharedUser(string currentUserID, string sharedUserEmail, int noteTextID)
         {
             if (!_repositoryNoteTexts.HasAccessForUser(noteTextID, currentUserID))
@@ -183,17 +185,17 @@ namespace NoteShared.Services.Interfaces
             var noteText = await _repositoryNoteTexts.GetByAsync(el => el.ID == noteTextID);
 
             var sharedUser = await _repositoryUsers.GetByAsync(el => el.Email == sharedUserEmail);
-            if(sharedUser == null)
+            if (sharedUser == null)
             {
                 return new ServiceResponse("User is not found");
             }
-           
+
             int order = 0;
             if (_repositoryNotes.HasNote(sharedUser.Id))
             {
                 order = _repositoryNotes.GetMinimalNoteOrder(sharedUser.Id) - 1;
             }
-            
+
             Note newNote = new Note { Order = order, UserID = sharedUser.Id, NoteTextID = noteTextID };
             await _repositoryNotes.CreateAsync(newNote);
 

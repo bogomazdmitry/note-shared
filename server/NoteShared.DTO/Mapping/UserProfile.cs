@@ -5,7 +5,7 @@ namespace NoteShared.DTO.Mapping
 {
     public class UserProfile : Profile
     {
-        public UserProfile ()
+        public UserProfile()
         {
             CreateMap<User, UserInfoResponse>()
                 .ForMember(user => user.Email, map => map.MapFrom(userInfoResponse => userInfoResponse.Email))

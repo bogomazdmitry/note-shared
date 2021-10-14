@@ -2,7 +2,7 @@
 {
     public class ServiceResponse<TModel>
     {
-        public ServiceResponse() {}
+        public ServiceResponse() { }
 
         public ServiceResponse(string error)
         {

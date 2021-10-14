@@ -12,10 +12,10 @@ namespace NoteShared.Infrastructure.Data.Repositories
         where TEntity : class
     {
         protected readonly ApplicationContext _context;
-     
+
         protected readonly DbSet<TEntity> _dbSet;
 
-        public BaseRepository(ApplicationContext context) 
+        public BaseRepository(ApplicationContext context)
         {
             _context = context;
             _dbSet = context.Set<TEntity>();
