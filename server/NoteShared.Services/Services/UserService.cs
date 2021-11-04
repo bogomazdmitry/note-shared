@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using NoteShared.DTO;
 using NoteShared.Infrastructure.Data.Entity.Users;
 using System;
-using AutoMapper;
+using System.Threading.Tasks;
 
 namespace NoteShared.Services.Interfaces
 {

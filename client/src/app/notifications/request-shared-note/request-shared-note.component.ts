@@ -21,8 +21,6 @@ export class RequestSharedNoteComponent implements OnInit, BaseNotification {
 
   public ngOnInit(): void {
     this.content = JSON.parse(this.notification.content);
-    console.log(this.content);
-    console.log(this.notification);
   }
 
   public declineRequest(): void {

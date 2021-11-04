@@ -1,7 +1,7 @@
 ﻿using NoteShared.Infrastructure.Data.Entity.Notes;
-using System.Threading.Tasks;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace NoteShared.Infrastructure.Data.Repositories
 {

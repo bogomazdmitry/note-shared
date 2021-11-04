@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using NoteShared.Services.Interfaces;
 using NoteShared.DTO;
+using NoteShared.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace NoteShared.Api.Controllers
 {

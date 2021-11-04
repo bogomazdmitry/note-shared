@@ -22,7 +22,7 @@ namespace NoteShared.Services.Interfaces
 
         private readonly IMapper _mapper;
 
-        public readonly INotificationsService _notificationsService; 
+        public readonly INotificationsService _notificationsService;
 
         public NoteService(
             IRepositoryNotes repositoryNotes,
@@ -212,7 +212,7 @@ namespace NoteShared.Services.Interfaces
 
             var deleteNote = await _repositoryNotes.GetByAsync(note => note.NoteTextID == noteTextID && note.UserID == sharedUser.Id);
             await _repositoryNotes.RemoveAsync(deleteNote);
-            
+
             return new ServiceResponse();
         }
 
@@ -224,14 +224,14 @@ namespace NoteShared.Services.Interfaces
                 order = _repositoryNotes.GetMinimalNoteOrder(userID) - 1;
             }
 
-            Note newNote = new Note { Order = order, UserID = userID, NoteTextID = noteTextID };
+            var newNote = new Note { Order = order, UserID = userID, NoteTextID = noteTextID };
             await _repositoryNotes.CreateAsync(newNote);
             newNote = await _repositoryNotes.GetByAsync(el => el.ID == newNote.ID, el => el.NoteText);
 
             NoteDto newNoteDto = _mapper.Map<NoteDto>(newNote);
 
             await _notificationsService.DeleteNotification(userID, notificationID);
-            
+
             return new ServiceResponse<NoteDto>(newNoteDto);
         }
 

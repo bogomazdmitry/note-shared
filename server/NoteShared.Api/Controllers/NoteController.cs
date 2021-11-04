@@ -35,7 +35,7 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] int noteOrder)
         {
-            NoteDto note = new NoteDto() { Order = noteOrder, NoteText = new NoteTextDto() };
+            var note = new NoteDto { Order = noteOrder, NoteText = new NoteTextDto() };
             var result = await _noteService.CreateNote(LoggedInUserUserId, note);
             return ResultOf(result);
         }

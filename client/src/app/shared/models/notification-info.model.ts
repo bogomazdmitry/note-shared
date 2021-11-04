@@ -19,5 +19,6 @@ export interface NotificationInfo {
   id: number;
   content: string;
   type: NotificationType;
+  createDateTime: Date;
 }
 

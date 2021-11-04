@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using NoteShared.DTO;
+﻿using NoteShared.DTO;
+using System.Threading.Tasks;
 
 namespace NoteShared.Services.Interfaces
 {

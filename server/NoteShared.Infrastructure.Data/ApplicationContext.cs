@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using NoteShared.Infrastructure.Data.Entity.Users;
-using NoteShared.Infrastructure.Data.Entity.Notes;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using NoteShared.Infrastructure.Data.Entities.Notifications;
 using NoteShared.Infrastructure.Data.Entity.NoteDesigns;
 using NoteShared.Infrastructure.Data.Entity.NoteHistories;
+using NoteShared.Infrastructure.Data.Entity.Notes;
 using NoteShared.Infrastructure.Data.Entity.NoteTexts;
-using NoteShared.Infrastructure.Data.Entities.Notifications;
+using NoteShared.Infrastructure.Data.Entity.Users;
 
 namespace NoteShared.Infrastructure.Data
 {

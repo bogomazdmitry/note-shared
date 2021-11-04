@@ -1,11 +1,11 @@
-﻿using IdentityServer4.Validation;
-using System.Threading.Tasks;
-using IdentityServer4.Events;
+﻿using IdentityServer4.Events;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
+using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Identity;
 using NoteShared.Infrastructure.Data.Entity.Users;
 using Serilog;
+using System.Threading.Tasks;
 using static IdentityModel.OidcConstants;
 
 namespace NoteShared.Api.Configuration.IdentityServer

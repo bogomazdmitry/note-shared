@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using NoteShared.DTO;
 using NoteShared.DTO.DTO;
 using NoteShared.Infrastructure.Data.Entities.Notifications;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Linq;
 using NoteShared.Infrastructure.Data.Entity.Users;
-using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace NoteShared.Services.Interfaces
 {
@@ -29,6 +30,7 @@ namespace NoteShared.Services.Interfaces
         {
             var notificationList = _repositoryNotifications
                 .GetAllByQueryable(e => e.UserID == userID)
+                .OrderByDescending(e => e.CreateDateTime)
                 .ToList();
             var notificationDtoList = _mapper.Map<IEnumerable<NotificationDto>>(notificationList);
             return new ServiceResponse<IEnumerable<NotificationDto>>(notificationDtoList);
@@ -37,7 +39,7 @@ namespace NoteShared.Services.Interfaces
         public async Task<ServiceResponse> DeleteNotification(string userID, int deleteNotificationID)
         {
             var deleteNote = await _repositoryNotifications.GetByAsync(el => el.ID == deleteNotificationID);
-            if (deleteNote.UserID != userID) 
+            if (deleteNote.UserID != userID)
             {
                 return new ServiceResponse("Not allowed");
             }
@@ -51,7 +53,7 @@ namespace NoteShared.Services.Interfaces
             var currentUser = await _repositoryUsers.GetByAsync(el => el.Id == currentUserID);
 
             var notificationContent = new RequestSharedNoteNotificationContent()
-            { 
+            {
                 FromUserEmail = currentUser.Email,
                 NoteTextID = noteTextID
             };
@@ -60,7 +62,8 @@ namespace NoteShared.Services.Interfaces
             {
                 UserID = sharedUser.Id,
                 Content = JsonConvert.SerializeObject(notificationContent),
-                Type = NotificationType.RequestSharedNoteType
+                Type = NotificationType.RequestSharedNoteType,
+                CreateDateTime = DateTime.UtcNow
             };
 
             await _repositoryNotifications.CreateAsync(notification);
@@ -76,16 +79,17 @@ namespace NoteShared.Services.Interfaces
             var notificationContent = new AcceptedRequestSharedNoteNotificationContent()
             {
                 FromUserEmail = currentUser.Email,
-                NoteText = noteTextID
+                NoteText = noteTextID,
             };
 
             var notification = new Notification()
             {
                 UserID = ownerUserID,
                 Content = JsonConvert.SerializeObject(notificationContent),
-                Type = NotificationType.AcceptedRequestSharedNoteType
+                Type = NotificationType.AcceptedRequestSharedNoteType,
+                CreateDateTime = DateTime.UtcNow
             };
-            
+
             await _repositoryNotifications.CreateAsync(notification);
 
             var notificationDto = _mapper.Map<NotificationDto>(notification);
@@ -106,11 +110,12 @@ namespace NoteShared.Services.Interfaces
             {
                 UserID = ownerUserID,
                 Content = JsonConvert.SerializeObject(notificationContent),
-                Type = NotificationType.DeclinedRequestSharedNoteType
+                Type = NotificationType.DeclinedRequestSharedNoteType,
+                CreateDateTime = DateTime.UtcNow
             };
 
             await _repositoryNotifications.CreateAsync(notification);
-            
+
             var notificationDto = _mapper.Map<NotificationDto>(notification);
             return new ServiceResponse<NotificationDto>(notificationDto);
         }

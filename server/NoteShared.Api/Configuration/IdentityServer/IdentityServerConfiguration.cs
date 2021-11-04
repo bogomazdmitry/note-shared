@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using IdentityServer4;
 using IdentityServer4.Models;
-using IdentityServer4;
-using System.Security.Claims;
+using System.Collections.Generic;
 
 namespace NoteShared.Api.Configuration.IdentityServer
 {

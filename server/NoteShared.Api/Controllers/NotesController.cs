@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NoteShared.Api.Controllers;
 using NoteShared.DTO;
-using NoteShared.Infrastructure.Data.Entity.Notes;
 using NoteShared.Services.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;

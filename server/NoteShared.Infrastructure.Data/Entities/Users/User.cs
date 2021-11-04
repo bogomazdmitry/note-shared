@@ -8,7 +8,7 @@ namespace NoteShared.Infrastructure.Data.Entity.Users
     public class User : IdentityUser
     {
         public virtual ICollection<Note> Notes { get; set; }
-        
+
         public virtual ICollection<Notification> Notifications { get; set; }
     }
 }

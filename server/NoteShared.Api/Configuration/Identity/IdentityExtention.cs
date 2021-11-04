@@ -4,9 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using NoteShared.Infrastructure.Data;
 using NoteShared.Infrastructure.Data.Entity.Users;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NoteShared.Api.Configuration.Identity
 {

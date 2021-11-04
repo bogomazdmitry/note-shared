@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using NoteShared.Api.Configuration;
 using NoteShared.Api.Configuration.Identity;
 using NoteShared.Api.Configuration.IdentityServer;
@@ -33,7 +34,10 @@ namespace Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc
+                );
 
             if (_hostEnvironment.IsDevelopment())
             {

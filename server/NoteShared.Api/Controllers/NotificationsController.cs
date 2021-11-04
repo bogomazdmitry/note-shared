@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using NoteShared.Infrastructure.Data.Entities.Notifications;
 using NoteShared.Services.Interfaces;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using static IdentityServer4.IdentityServerConstants;
 
@@ -19,7 +17,7 @@ namespace NoteShared.Api.Controllers
         private readonly ILogger<NotificationsController> _logger;
 
         public NotificationsController(
-            ILogger<NotificationsController> logger, 
+            ILogger<NotificationsController> logger,
             INotificationsService notificationService
         )
         {

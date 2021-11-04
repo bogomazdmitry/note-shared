@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NoteShared.Infrastructure.Data.Entities.Notifications;
+using NoteShared.Infrastructure.Data.Entity.NoteDesigns;
 using NoteShared.Infrastructure.Data.Entity.NoteHistories;
 using NoteShared.Infrastructure.Data.Entity.Notes;
-using NoteShared.Infrastructure.Data.Entity.Users;
-using NoteShared.Infrastructure.Data.Repositories;
 using NoteShared.Infrastructure.Data.Entity.NoteTexts;
-using NoteShared.Infrastructure.Data.Entity.NoteDesigns;
-using NoteShared.Infrastructure.Data.Entities.Notifications;
+using NoteShared.Infrastructure.Data.Entity.Users;
 using NoteShared.Infrastructure.Data.Repositoreis;
+using NoteShared.Infrastructure.Data.Repositories;
 
 namespace NoteShared.Api.Configuration
 {

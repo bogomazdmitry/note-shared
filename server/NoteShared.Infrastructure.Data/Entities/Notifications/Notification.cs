@@ -1,4 +1,5 @@
 ﻿using NoteShared.Infrastructure.Data.Entity.Users;
+using System;
 
 namespace NoteShared.Infrastructure.Data.Entities.Notifications
 {
@@ -13,5 +14,7 @@ namespace NoteShared.Infrastructure.Data.Entities.Notifications
         public string UserID { get; set; }
 
         public User User { get; set; }
+
+        public DateTime CreateDateTime { get; set; }
     }
 }

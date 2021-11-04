@@ -21,11 +21,12 @@ namespace NoteShared.Api.Hubs
         private readonly IRepositioryUsers _repositoryUsers;
 
         public NoteHub(
-            INoteService noteService, 
-            INotificationsService notificationsService, 
-            IHubContext<NotificationsHub> hubContext, 
+            INoteService noteService,
+            INotificationsService notificationsService,
+            IHubContext<NotificationsHub> hubContext,
             IRepositioryUsers repositoryUsers
-        ) {
+        )
+        {
             _noteService = noteService;
             _notificationService = notificationsService;
             _hubContext = hubContext;
@@ -49,15 +50,15 @@ namespace NoteShared.Api.Hubs
         public async Task<ServiceResponse> ShareNoteWithUser(AddSharedUserRequest request)
         {
             var result = await _noteService.CanAddSharedUser(LoggedInUserUserId, request.Email, request.NoteTextID);
-            if(!result.Success)
+            if (!result.Success)
             {
                 return result;
             }
-            
+
             var resultNotificationDto = await _notificationService.SendReqestSharedNotification(LoggedInUserUserId, request.Email, request.NoteTextID);
-            if(!resultNotificationDto.Success)
+            if (!resultNotificationDto.Success)
             {
-                return resultNotificationDto.convertToServiceRespose();
+                return resultNotificationDto.ConvertToServiceRespose();
             }
             var sharedUser = await _repositoryUsers.GetByAsync(el => el.Email == request.Email);
 
@@ -72,7 +73,7 @@ namespace NoteShared.Api.Hubs
             var result = await _noteService.AcceptSharedNote(LoggedInUserUserId, noteTextID, notificationID);
             var ownerNoteIDResult = await _noteService.GetOwnerID(LoggedInUserUserId, noteTextID);
 
-            if(!ownerNoteIDResult.Success)
+            if (!ownerNoteIDResult.Success)
             {
                 return null;
             }

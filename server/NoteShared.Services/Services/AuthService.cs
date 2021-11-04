@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System.Linq;
-using System.Threading.Tasks;
 using NoteShared.DTO;
 using NoteShared.Infrastructure.Data.Entity.Users;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace NoteShared.Services.Interfaces
 {

@@ -8,4 +8,7 @@
       <mat-icon> clear </mat-icon>
     </button>
   </mat-card-actions>
+  <mat-card-footer class="float-right date-time mx-1">
+    {{ notification.createDateTime | date: 'short' }}
+  </mat-card-footer>
 </mat-card>

@@ -22,7 +22,7 @@
             Success = answerRequest.Success;
         }
 
-        public ServiceResponse convertToServiceRespose()
+        public ServiceResponse ConvertToServiceRespose()
         {
             ServiceResponse serviceRespose;
             if (Success)
