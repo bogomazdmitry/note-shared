@@ -71,14 +71,6 @@ namespace Api.Controllers
             return ResultOf(result);
         }
 
-        [Route("add-shared-user")]
-        [HttpPost]
-        public async Task<IActionResult> AddSharedUser([FromBody] AddSharedUserRequest addSharedUserRequest)
-        {
-            var result = await _noteService.AddSharedUser(LoggedInUserUserId, addSharedUserRequest.Email, addSharedUserRequest.NoteTextID);
-            return ResultOf(result);
-        }
-
         [Route("delete-shared-user")]
         [HttpDelete]
         public async Task<IActionResult> DeleteSharedUser([FromQuery] DeleteSharedUserRequest deleteSharedUserRequest)
@@ -86,6 +78,5 @@ namespace Api.Controllers
             var result = await _noteService.DeleteSharedUser(LoggedInUserUserId, deleteSharedUserRequest.Email, deleteSharedUserRequest.NoteTextID);
             return ResultOf(result);
         }
-
     }
 }

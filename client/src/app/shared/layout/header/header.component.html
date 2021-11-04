@@ -6,7 +6,6 @@
   <shared-theme-changer></shared-theme-changer>
   <div *ngIf="authService.isAuthorize(); else UnAuthorizeBlock">
     <button mat-flat-button color="primary" routerLink="/user/info">
-      {{ userName }}
       <mat-icon aria-hidden="false" aria-label="Account">
         account_circle
       </mat-icon>

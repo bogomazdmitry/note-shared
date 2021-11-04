@@ -1,8 +1,10 @@
 export const actionRoutes = {
   authSignup: 'signup',
   authToken: '/connect/token',
+
   userInfo: '',
   userChangeInfo: '',
+
   noteUpdate: 'update-note',
   noteDesignUpdate: 'update-note-design',
   noteCreate: '',
@@ -12,12 +14,27 @@ export const actionRoutes = {
   notesAddSharedUser: 'add-shared-user',
   notesDeleteSharedUser: 'delete-shared-user',
   notesUpdateOrder: 'update-order',
+  noteTextUpdate: 'update-note-text',
+
   authCheckUniqueUserName: 'check-unique-user-name',
   authCheckUniqueEmail: 'check-unique-email',
+
+  declineSharedNote: 'decline-shared-note',
+  acceptSharedNote: 'accept-shared-note',
+  requestSharedNote: 'share-note-with-user',
+
+  notificationDelete: 'delete-notification',
+  notificationsGet: '',
+};
+
+export const hubMethodSubscription = {
+  noteTextUpdate: 'update-note-text',
+  sendNewNotification: 'send-new-notification',
 };
 
 export const hubsRoutes = {
-  note: '/hub/note'
+  note: '/hub/note',
+  notifications: '/hub/notifications'
 };
 
 export const controllerRoutes = {

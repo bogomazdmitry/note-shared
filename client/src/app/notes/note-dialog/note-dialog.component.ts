@@ -67,7 +67,7 @@ export class NoteDialogComponent implements OnInit {
   }
 
   public saveNote(): void {
-    this.noteService.updateNoteText(this.note.noteText);
+    this.noteService.updateNoteText(this.note.noteText).subscribe();
     this.dialogReference.close(this.note);
   }
 
@@ -97,8 +97,9 @@ export class NoteDialogComponent implements OnInit {
 
   public addUser($event: MatChipInputEvent): void {
     this.noteService
-      .addSharedUser($event.value, this.note.noteText.id)
-      .subscribe(() => {
+      .shareNoteWithUser($event.value, this.note.noteText.id)
+      .subscribe((result) => {
+        console.log(result);
         this.userEmails.unshift($event.value);
       });
     $event.input.value = '';

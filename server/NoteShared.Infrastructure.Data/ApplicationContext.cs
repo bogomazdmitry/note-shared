@@ -5,6 +5,7 @@ using NoteShared.Infrastructure.Data.Entity.Notes;
 using NoteShared.Infrastructure.Data.Entity.NoteDesigns;
 using NoteShared.Infrastructure.Data.Entity.NoteHistories;
 using NoteShared.Infrastructure.Data.Entity.NoteTexts;
+using NoteShared.Infrastructure.Data.Entities.Notifications;
 
 namespace NoteShared.Infrastructure.Data
 {
@@ -15,6 +16,8 @@ namespace NoteShared.Infrastructure.Data
         public DbSet<NoteDesign> NoteDesigns { get; set; }
 
         public DbSet<NoteHistory> NoteHistories { get; set; }
+
+        public DbSet<Notification> Notifications { get; set; }
 
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
@@ -53,6 +56,14 @@ namespace NoteShared.Infrastructure.Data
                 .WithOne(p => p.NoteText)
                 .HasForeignKey(u => u.NoteTextID)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder
+                .Entity<User>()
+                .HasMany(u => u.Notifications)
+                .WithOne(p => p.User)
+                .HasForeignKey(p => p.UserID)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

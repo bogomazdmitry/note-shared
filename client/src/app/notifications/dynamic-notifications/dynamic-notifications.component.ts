@@ -6,7 +6,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { BaseNotification } from 'src/app/shared/models/base-notification.model';
+import { NotificationInfo } from 'src/app/shared/models/notification-info.model';
 import { NotificationsService } from 'src/app/shared/services/notifications.service';
 import { MenuNotificationDirective } from '../menu-notification.directive';
 
@@ -16,38 +16,20 @@ import { MenuNotificationDirective } from '../menu-notification.directive';
   styleUrls: ['./dynamic-notifications.component.scss'],
 })
 export class DynamicNotificationsComponent implements OnInit {
-  public notifications: BaseNotification[];
+  public notifications: NotificationInfo[];
+
   @ViewChild(MenuNotificationDirective, { static: true })
   public menuNotification!: MenuNotificationDirective;
+
   @Output()
   public changingCountNotificationsEvent = new EventEmitter<number>();
 
   constructor(
-    private readonly notificationsService: NotificationsService,
-    private componentFactoryResolver: ComponentFactoryResolver
+    private readonly notificationsService: NotificationsService
   ) {
-    this.notifications = this.notificationsService.notifications;
   }
-  public ngOnInit(): void {
-    this.loadNotifications();
-  }
-  public loadNotifications(): void {
-    const viewContainerRef = this.menuNotification.viewContainerRef;
-    viewContainerRef.clear();
-    if (this.notifications) {
-      this.notifications.forEach((adItem) => {
-        const componentFactory =
-          this.componentFactoryResolver.resolveComponentFactory(
-            adItem.component
-          );
 
-        const componentRef =
-          viewContainerRef.createComponent<BaseNotification>(
-            componentFactory
-          );
-        componentRef.instance.notification = adItem.notification;
-      });
-      this.changingCountNotificationsEvent.emit(this.notifications.length);
-    }
+  public ngOnInit(): void {
+    this.notificationsService.setParameters(this.menuNotification, this.changingCountNotificationsEvent);
   }
 }

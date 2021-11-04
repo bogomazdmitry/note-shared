@@ -22,12 +22,15 @@ namespace NoteShared.Services.Interfaces
 
         private readonly IMapper _mapper;
 
+        public readonly INotificationsService _notificationsService; 
+
         public NoteService(
             IRepositoryNotes repositoryNotes,
             IRepositoryNoteDesigns repositoryNoteDesigns,
             IRepositoryNoteTexts repositoryNoteTexts,
             IRepositioryUsers repositoryUsers,
-            IMapper mapper
+            IMapper mapper,
+            INotificationsService notificationsService
         )
         {
             _repositoryNotes = repositoryNotes;
@@ -35,6 +38,7 @@ namespace NoteShared.Services.Interfaces
             _repositoryNoteTexts = repositoryNoteTexts;
             _repositoryUsers = repositoryUsers;
             _mapper = mapper;
+            _notificationsService = notificationsService;
         }
 
         public async Task<ServiceResponse<IEnumerable<NoteDto>>> GetAllNotes(string userID)
@@ -175,7 +179,7 @@ namespace NoteShared.Services.Interfaces
             return new ServiceResponse<List<string>>(userList);
         }
 
-        public async Task<ServiceResponse> AddSharedUser(string currentUserID, string sharedUserEmail, int noteTextID)
+        public async Task<ServiceResponse> CanAddSharedUser(string currentUserID, string sharedUserEmail, int noteTextID)
         {
             if (!_repositoryNoteTexts.HasAccessForUser(noteTextID, currentUserID))
             {
@@ -189,15 +193,6 @@ namespace NoteShared.Services.Interfaces
             {
                 return new ServiceResponse("User is not found");
             }
-
-            int order = 0;
-            if (_repositoryNotes.HasNote(sharedUser.Id))
-            {
-                order = _repositoryNotes.GetMinimalNoteOrder(sharedUser.Id) - 1;
-            }
-
-            Note newNote = new Note { Order = order, UserID = sharedUser.Id, NoteTextID = noteTextID };
-            await _repositoryNotes.CreateAsync(newNote);
 
             return new ServiceResponse();
         }
@@ -217,8 +212,40 @@ namespace NoteShared.Services.Interfaces
 
             var deleteNote = await _repositoryNotes.GetByAsync(note => note.NoteTextID == noteTextID && note.UserID == sharedUser.Id);
             await _repositoryNotes.RemoveAsync(deleteNote);
-
+            
             return new ServiceResponse();
+        }
+
+        public async Task<ServiceResponse<NoteDto>> AcceptSharedNote(string userID, int noteTextID, int notificationID)
+        {
+            int order = 0;
+            if (_repositoryNotes.HasNote(userID))
+            {
+                order = _repositoryNotes.GetMinimalNoteOrder(userID) - 1;
+            }
+
+            Note newNote = new Note { Order = order, UserID = userID, NoteTextID = noteTextID };
+            await _repositoryNotes.CreateAsync(newNote);
+            newNote = await _repositoryNotes.GetByAsync(el => el.ID == newNote.ID, el => el.NoteText);
+
+            NoteDto newNoteDto = _mapper.Map<NoteDto>(newNote);
+
+            await _notificationsService.DeleteNotification(userID, notificationID);
+            
+            return new ServiceResponse<NoteDto>(newNoteDto);
+        }
+
+        public async Task<ServiceResponse> DeclineSharedNote(string userID, int noteTextID, int notificationID)
+        {
+            var result = await _notificationsService.DeleteNotification(userID, notificationID);
+            return result;
+        }
+
+        public async Task<ServiceResponse<string>> GetOwnerID(string userID, int noteTextID)
+        {
+            var note = await _repositoryNotes.GetByAsync(note => note.NoteTextID == noteTextID && note.UserID != userID);
+
+            return new ServiceResponse<string>(modelRequest: note.UserID);
         }
     }
 }

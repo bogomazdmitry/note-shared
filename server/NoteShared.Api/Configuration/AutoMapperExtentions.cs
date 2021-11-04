@@ -12,6 +12,7 @@ namespace NoteShared.Api.Configuration
             {
                 mc.AddProfile(new UserProfile());
                 mc.AddProfile(new NoteProfile());
+                mc.AddProfile(new NotificationProfile());
             });
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);

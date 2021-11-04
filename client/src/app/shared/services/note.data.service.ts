@@ -16,9 +16,8 @@ export class NoteDataService extends BaseDataService {
     return this.sendPostRequest(JSON.stringify(note), actionRoutes.noteUpdate);
   }
 
-  public deleteNote(id: number): Observable<any> {
-    const headers = new Headers();
-    return this.sendDeleteRequest({ id }, actionRoutes.noteDelete);
+  public deleteNote(noteID: number): Observable<any> {
+    return this.sendDeleteRequest({ noteID }, actionRoutes.noteDelete);
   }
 
   public createNote(order: number): Observable<Note> {
@@ -39,14 +38,6 @@ export class NoteDataService extends BaseDataService {
     return this.sendGetRequest(
       { noteTextID },
       actionRoutes.notesSharedUsersEmails
-    );
-  }
-
-  public addSharedUser(email: string, noteTextID: number): Observable<any> {
-    console.log(actionRoutes.notesAddSharedUser);
-    return this.sendPostRequest(
-      { email, noteTextID },
-      actionRoutes.notesAddSharedUser
     );
   }
 

@@ -146,6 +146,7 @@ namespace Api
             {
                 e.MapControllers();
                 e.MapHub<NoteHub>("hub/note");
+                e.MapHub<NotificationsHub>("hub/notifications");
             });
         }
     }

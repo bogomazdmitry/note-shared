@@ -23,9 +23,9 @@ namespace NoteShared.Infrastructure.Data.Repositories
 
         public async Task<TEntity> CreateAsync(TEntity entity)
         {
-            await _context.AddAsync(entity);
+            var newEntity = await _context.AddAsync(entity);
             await _context.SaveChangesAsync();
-            return entity;
+            return newEntity.Entity;
         }
 
         public async Task<IEnumerable<TEntity>> CreateRangeAsync(IEnumerable<TEntity> entities)
@@ -50,9 +50,14 @@ namespace NoteShared.Infrastructure.Data.Repositories
             return _dbSet.AsQueryable();
         }
 
-        public async Task<TEntity> GetByAsync(Expression<Func<TEntity, bool>> expression)
+        public async Task<TEntity> GetByAsync(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includes)
         {
-            return await _dbSet.FirstOrDefaultAsync(expression);
+            IQueryable<TEntity> query = _dbSet;
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+            return await query.FirstOrDefaultAsync(expression);
         }
 
         public async Task RemoveAsync(TEntity entity)

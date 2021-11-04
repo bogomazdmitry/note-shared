@@ -1,5 +1,14 @@
+@import "~bootstrap/scss/bootstrap-grid.scss";
 
-.mat-menu-content:not(:empty) {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+.notification-menu.mat-menu-panel {
+  max-width: 400px;
+  max-height: 500px;
+  @include media-breakpoint-down(md) {
+    max-width: 100%;
+  }
+}
+
+.delete-mat-menu-padding {
+  margin-top: -6px;
+  margin-bottom: -6px;
 }

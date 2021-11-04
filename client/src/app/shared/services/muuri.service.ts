@@ -109,7 +109,7 @@ export class MuuriService {
 
   public addElementToGrid(addedNodes: NodeList): void {
     this.grid.add(addedNodes, { index: 0 });
-    const muuriElements = this.grid.getItems();
+    const muuriElements: any = this.grid.getItems();
     for (let i = 0; i < addedNodes.length; ++i) {
       this.muuriIdToDatabaseId.set(
         muuriElements[i]._id,
@@ -120,7 +120,7 @@ export class MuuriService {
   }
 
   public updateOrder(): void {
-    const muuriElements = this.grid.getItems();
+    const muuriElements: any = this.grid.getItems();
     for (let i = 0; i < muuriElements.length; ++i) {
       if (muuriElements[i]) {
         const databaseId = this.muuriIdToDatabaseId.get(muuriElements[i]._id);
@@ -136,7 +136,7 @@ export class MuuriService {
   }
 
   public generateMuuriIdToDatabaseId(): void {
-    const muuriElements = this.grid.getItems();
+    const muuriElements: any = this.grid.getItems();
     for (let i = 0; i < this.noteService.notes.length; ++i) {
       this.muuriIdToDatabaseId.set(
         muuriElements[i]._id,

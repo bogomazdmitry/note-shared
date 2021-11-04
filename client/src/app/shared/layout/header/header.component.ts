@@ -9,7 +9,6 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  public userName: string | undefined;
 
   constructor(
     public readonly userService: UserService,
@@ -20,8 +19,5 @@ export class HeaderComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    if (this.authService.isAuthorize()) {
-      this.userName = this.userService.getUser()?.userName;
-    }
   }
 }

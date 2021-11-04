@@ -8,13 +8,17 @@
 </button>
 <mat-menu
   #menu="matMenu"
-  overlayPanelClass="notification-menu"
+  class="notification-menu"
   xPosition="before"
 >
+<div class="delete-mat-menu-padding">
   <mat-card class="border">
     <mat-slide-toggle click-stop-propagation>
     </mat-slide-toggle>
     Subscribe to send notifications to the email
   </mat-card>
-
+  <notifications-dynamic-notifications
+  (changingCountNotificationsEvent)="setCountNotification($event)"
+  ></notifications-dynamic-notifications>
+</div>
 </mat-menu>

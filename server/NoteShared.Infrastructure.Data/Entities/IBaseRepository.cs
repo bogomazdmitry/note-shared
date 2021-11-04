@@ -20,7 +20,7 @@ namespace NoteShared.Infrastructure.Data.Entity
 
         Task<int> RemoveRangeAsync(IEnumerable<TEntity> entities);
 
-        Task<TEntity> GetByAsync(Expression<Func<TEntity, bool>> expression);
+        Task<TEntity> GetByAsync(Expression<Func<TEntity, bool>> expression, params Expression<Func<TEntity, object>>[] includes);
 
         IQueryable<TEntity> GetAllQueryable();
 

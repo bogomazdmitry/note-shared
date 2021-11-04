@@ -60,7 +60,7 @@ export class NoteService implements OnDestroy {
     return subscription;
   }
 
-  public updateNoteText(noteText: NoteText): Promise<NoteText> {
+  public updateNoteText(noteText: NoteText): Observable<NoteText> {
     return this.noteSignalR.updateNoteText(noteText);
   }
 
@@ -107,11 +107,23 @@ export class NoteService implements OnDestroy {
     return this.noteDataService.getSharedUsersEmails(noteTextID);
   }
 
-  public addSharedUser(email: string, noteTextID: number): Observable<any> {
-    return this.noteDataService.addSharedUser(email, noteTextID);
+  public shareNoteWithUser(email: string, noteTextID: number): Observable<any> {
+    return this.noteSignalR.shareNoteWithUser(email, noteTextID);
   }
 
   public deleteSharedUser(email: string, noteTextID: number): Observable<any> {
     return this.noteDataService.deleteSharedUser(email, noteTextID);
+  }
+
+  public acceptSharedNote(noteTextID: number, notificationID: number): Observable<any> {
+    return this.noteSignalR.acceptSharedNote(noteTextID, notificationID);
+  }
+
+  public declineSharedNote(noteTextID: number, notificationID: number): Observable<any> {
+    return this.noteSignalR.declineSharedNote(noteTextID, notificationID);
+  }
+
+  public addNote(note: Note): void {
+    this.notes.unshift(note);
   }
 }

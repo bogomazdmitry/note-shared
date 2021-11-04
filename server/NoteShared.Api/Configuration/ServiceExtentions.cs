@@ -10,6 +10,7 @@ namespace NoteShared.Api.Configuration
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<INoteService, NoteService>();
+            services.AddScoped<INotificationsService, NotificationsService>();
         }
     }
 }

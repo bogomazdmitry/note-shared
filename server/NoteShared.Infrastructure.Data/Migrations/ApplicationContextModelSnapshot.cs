@@ -150,6 +150,29 @@ namespace NoteShared.Infrastructure.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("NoteShared.Infrastructure.Data.Entities.Notifications.Notification", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("NoteShared.Infrastructure.Data.Entity.NoteDesigns.NoteDesign", b =>
                 {
                     b.Property<int>("ID")
@@ -361,6 +384,16 @@ namespace NoteShared.Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("NoteShared.Infrastructure.Data.Entities.Notifications.Notification", b =>
+                {
+                    b.HasOne("NoteShared.Infrastructure.Data.Entity.Users.User", "User")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("NoteShared.Infrastructure.Data.Entity.NoteDesigns.NoteDesign", b =>
                 {
                     b.HasOne("NoteShared.Infrastructure.Data.Entity.Notes.Note", "Note")
@@ -414,6 +447,8 @@ namespace NoteShared.Infrastructure.Data.Migrations
             modelBuilder.Entity("NoteShared.Infrastructure.Data.Entity.Users.User", b =>
                 {
                     b.Navigation("Notes");
+
+                    b.Navigation("Notifications");
                 });
 #pragma warning restore 612, 618
         }

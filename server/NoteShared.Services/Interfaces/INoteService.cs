@@ -26,8 +26,14 @@ namespace NoteShared.Services.Interfaces
 
         Task<ServiceResponse<List<string>>> GetUserEmailListByNoteTextID(string userID, int noteTextID);
 
-        Task<ServiceResponse> AddSharedUser(string currentUserID, string sharedUserEmail, int noteTextID);
+        Task<ServiceResponse> CanAddSharedUser(string currentUserID, string sharedUserEmail, int noteTextID);
 
         Task<ServiceResponse> DeleteSharedUser(string currentUserID, string sharedUserEmail, int noteTextID);
+
+        Task<ServiceResponse<NoteDto>> AcceptSharedNote(string userID, int noteTextID, int notificationID);
+
+        Task<ServiceResponse> DeclineSharedNote(string userID, int noteTextID, int notificationID);
+
+        Task<ServiceResponse<string>> GetOwnerID(string userID, int noteTextID);
     }
 }

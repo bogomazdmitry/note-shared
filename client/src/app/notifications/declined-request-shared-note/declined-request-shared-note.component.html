@@ -1,0 +1,13 @@
+<mat-card class="border mt-1">
+  <div class="d-flex justify-content-start align-items-center">
+    <span class="material-icons mr-2">
+      highlight_off
+    </span>
+    <div class="flex-fill">
+      User with email {{ notification.content.fromUserEmail }} declined your propose!
+    </div>
+    <button mat-icon-button click-stop-propagation (click)="deleteNotification()">
+      <mat-icon> delete </mat-icon>
+    </button>
+  </div>
+</mat-card>
