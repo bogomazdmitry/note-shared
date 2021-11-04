@@ -18,7 +18,7 @@ export class NotificationsService implements OnDestroy {
   private menuNotification: MenuNotificationDirective;
   private changingCountNotificationsEvent: EventEmitter<number>;
 
-  constructor(
+  public constructor(
     private readonly notificationsDataService: NotificationsDataService,
     private readonly componentFactoryResolver: ComponentFactoryResolver,
     private readonly notificationSignalR: NotificationsSignalRService,

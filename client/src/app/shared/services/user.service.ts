@@ -6,7 +6,7 @@ import { UserDataService } from './user.data.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  constructor(private readonly userDataService: UserDataService) {}
+  public constructor(private readonly userDataService: UserDataService) {}
 
   public saveUser(userInfo: User): void {
     localStorage.setItem(fieldLocalStorage.user, JSON.stringify(userInfo));

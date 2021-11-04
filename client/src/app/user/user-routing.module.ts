@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
-import { Router, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../shared/access/auth.guard';
 import { UnAuthGuard } from '../shared/access/unauth.guard';
-import { AuthService } from '../shared/services/auth.service';
 import { SignInFormComponent } from './signin-form/signin-form.component';
 import { SignUpFormComponent } from './signup-form/signup-form.component';
 import { UserInfoComponent } from './user-info/user-info.component';

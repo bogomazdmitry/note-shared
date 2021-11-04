@@ -15,7 +15,7 @@ import { ColorPaletteService } from './color-palette.service';
 export class NoteService implements OnDestroy {
   public notes: Note[];
 
-  constructor(
+  public constructor(
     protected readonly httpClient: HttpClient,
     protected readonly noteDataService: NoteDataService,
     protected readonly notesDataService: NotesDataService,
@@ -42,9 +42,7 @@ export class NoteService implements OnDestroy {
       .connectToUpdateNotes()
       .subscribe((updatedNoteText: NoteText | null) => {
         if (updatedNoteText) {
-          const indexNote = this.notes.findIndex((note) => {
-            return note.noteText.id === updatedNoteText.id;
-          });
+          const indexNote = this.notes.findIndex((note) => note.noteText.id === updatedNoteText.id);
           this.notes[indexNote].noteText = updatedNoteText;
         }
       });

@@ -11,9 +11,7 @@ import {
 } from '../constants/url.constants';
 import { SignInModel } from '../models/sigin.model';
 import { SignUpModel } from '../models/signup.model';
-import { AuthService } from './auth.service';
 import { BaseDataService } from './base.data.service';
-import { UserService } from './user.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthDataService extends BaseDataService {

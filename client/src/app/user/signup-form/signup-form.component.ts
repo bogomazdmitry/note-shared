@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { SignUpFormService } from './signup-form.service';
 
@@ -12,7 +11,7 @@ import { SignUpFormService } from './signup-form.service';
 export class SignUpFormComponent implements OnInit {
   public buttonDisable: boolean;
 
-  constructor(
+  public constructor(
     private readonly authService: AuthService,
     public readonly signUpFormValidator: SignUpFormService
   ) {}

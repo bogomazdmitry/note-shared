@@ -5,7 +5,7 @@ import { BaseFormService } from '../../shared/services/base-form.service';
 
 @Injectable({ providedIn: 'root' })
 export class SignInFormService extends BaseFormService {
-  constructor(private readonly formBuilder: FormBuilder) {
+  public constructor(private readonly formBuilder: FormBuilder) {
     super(signInErrors);
     this.validationErrors = this.createValidationErrors();
     this.formGroup = this.createForm();

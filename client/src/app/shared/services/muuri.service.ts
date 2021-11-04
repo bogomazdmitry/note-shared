@@ -10,11 +10,10 @@ export class MuuriService {
   public addNotesElementMutation: MutationObserver;
   public initGridElementMutation: MutationObserver;
 
-  constructor(protected readonly noteService: NoteService) {}
-
   public grid: Grid;
-
   public gridElement: ElementRef;
+
+  public constructor(protected readonly noteService: NoteService) {}
 
   public setGridElement(gridElement: ElementRef): void {
     this.gridElement = gridElement;
@@ -88,7 +87,7 @@ export class MuuriService {
 
     this.initGridElementMutation = new MutationObserver(
       (mutations: MutationRecord[]) => {
-        for (let mutation of mutations) {
+        for (const mutation of mutations) {
           mutationFunction();
           return;
         }

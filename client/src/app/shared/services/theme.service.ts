@@ -8,7 +8,7 @@ export class ThemeService {
   private darkThemeString = 'dark-theme';
   private subjectIsDarkTheme: BehaviorSubject<boolean>;
 
-  constructor() {
+  public constructor() {
     const themeString = localStorage.getItem(fieldLocalStorage.theme);
     if (themeString) {
       this.isDarkTheme = themeString === this.darkThemeString;

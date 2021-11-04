@@ -1,20 +1,16 @@
 import { ThemeService } from './../../shared/services/theme.service';
-import { ThemeChangerComponent } from './../../shared/layout/theme-changer/theme-changer.component';
 import { ColorPaletteService } from './../../shared/services/color-palette.service';
 import { NoteService } from './../../shared/services/note.service';
 import { Note } from 'src/app/shared/models/note.model';
 import {
   Component,
-  ElementRef,
   Inject,
-  ViewChild,
   OnInit,
 } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserService } from 'src/app/shared/services/user.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ColorEvent } from 'ngx-color';
-import { Subject } from 'rxjs/internal/Subject';
 
 @Component({
   selector: 'notes-note-dialog',
@@ -23,7 +19,7 @@ import { Subject } from 'rxjs/internal/Subject';
 export class NoteDialogComponent implements OnInit {
   public userEmails: string[] = [];
 
-  constructor(
+  public constructor(
     public dialogReference: MatDialogRef<NoteDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
     public note: Note,

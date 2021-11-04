@@ -11,13 +11,11 @@ import { from } from 'rxjs';
 export class NoteSignalRService {
   private hubConnection: signalR.HubConnection;
 
-  constructor(private readonly authService: AuthService) {}
+  public constructor(private readonly authService: AuthService) {}
 
   public startConnection(): void {
     const options: signalR.IHttpConnectionOptions = {
-      accessTokenFactory: () => {
-        return this.authService.getAccessToken() ?? '';
-      },
+      accessTokenFactory: () => this.authService.getAccessToken() ?? '',
     };
 
     this.hubConnection = new signalR.HubConnectionBuilder()

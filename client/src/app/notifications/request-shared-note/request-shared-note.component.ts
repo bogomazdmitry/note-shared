@@ -11,13 +11,13 @@ import { BaseNotification } from '../base-notification/base-notification';
 })
 export class RequestSharedNoteComponent implements OnInit, BaseNotification {
 
-  constructor(
+  public notification: NotificationInfo;
+  public content: RequestSharedNoteNotificationContent;
+
+  public constructor(
     private readonly notificationsService: NotificationsService,
     private readonly noteService: NoteService
   ) { }
-
-  public notification: NotificationInfo;
-  public content: RequestSharedNoteNotificationContent;
 
   public ngOnInit(): void {
     this.content = JSON.parse(this.notification.content);

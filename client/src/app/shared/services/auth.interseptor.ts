@@ -6,8 +6,7 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { Observable, throwError } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +20,9 @@ export class TokenInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     request = request.clone({
       setHeaders: {
+        /* eslint-disable */
         Authorization: `Bearer ${this.authService.getAccessToken()}`,
+        /* eslint-enable */
       },
     });
     return next.handle(request);

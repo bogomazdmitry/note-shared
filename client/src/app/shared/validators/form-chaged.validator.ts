@@ -1,13 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
-import { take } from 'rxjs/internal/operators/take';
 import { ChangeUserInfo } from '../models/change-user-info.model';
-import { AuthDataService } from '../services/auth.data.service';
 
-export function FormIsChanged(
+export const formIsChanged = (
   changeUserInfo: ChangeUserInfo | null
-): (formGroup: FormGroup) => void {
-  return (formGroup: FormGroup): void => {
+): (formGroup: FormGroup) => void => (formGroup: FormGroup): void => {
     const newUser: ChangeUserInfo = formGroup.value;
     if (
       newUser.confirmNewPassword === changeUserInfo?.confirmNewPassword &&
@@ -20,4 +16,3 @@ export function FormIsChanged(
       formGroup.controls.globalError.setErrors(null);
     }
   };
-}

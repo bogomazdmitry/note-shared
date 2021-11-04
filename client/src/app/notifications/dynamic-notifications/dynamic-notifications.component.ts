@@ -1,6 +1,5 @@
 import {
   Component,
-  ComponentFactoryResolver,
   EventEmitter,
   OnInit,
   Output,
@@ -24,7 +23,7 @@ export class DynamicNotificationsComponent implements OnInit {
   @Output()
   public changingCountNotificationsEvent = new EventEmitter<number>();
 
-  constructor(
+  public constructor(
     private readonly notificationsService: NotificationsService
   ) {
   }

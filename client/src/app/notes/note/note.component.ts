@@ -22,7 +22,7 @@ export class NoteComponent {
     y: 0,
   };
 
-  constructor(
+  public constructor(
     public dialog: MatDialog,
     public overlay: Overlay,
     private readonly noteService: NoteService,

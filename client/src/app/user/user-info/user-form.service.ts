@@ -8,18 +8,18 @@ import {
 import { ChangeUserInfo } from 'src/app/shared/models/change-user-info.model';
 import { AuthDataService } from 'src/app/shared/services/auth.data.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { IsUniqueSelfEmail } from 'src/app/shared/validators/email-unique-self.validator';
-import { FormIsChanged } from 'src/app/shared/validators/form-chaged.validator';
-import { IsUniqueSelfUserName } from 'src/app/shared/validators/user-name-self-validator';
+import { isUniqueSelfEmail } from 'src/app/shared/validators/email-unique-self.validator';
+import { formIsChanged } from 'src/app/shared/validators/form-chaged.validator';
+import { isUniqueSelfUserName } from 'src/app/shared/validators/user-name-self-validator';
 import { BaseFormService as BaseFormService } from '../../shared/services/base-form.service';
-import { MustMatch } from '../../shared/validators/must-match.validator';
-import { PatternValidator } from '../../shared/validators/regex.validator';
+import { mustMatch } from '../../shared/validators/must-match.validator';
+import { patternValidator } from '../../shared/validators/regex.validator';
 
 @Injectable({ providedIn: 'root' })
 export class UserFormService extends BaseFormService {
   public changeUserInfo: ChangeUserInfo | null;
 
-  constructor(
+  public constructor(
     private readonly formBuilder: FormBuilder,
     private readonly userService: UserService,
     private readonly authDataService: AuthDataService
@@ -51,16 +51,16 @@ export class UserFormService extends BaseFormService {
           '',
           [
             Validators.required,
-            PatternValidator(
+            patternValidator(
               /.*[A-Z].*/,
               this.getError('oldPassword', 'hasUpperCase')
             ),
-            PatternValidator(
+            patternValidator(
               /.*[a-z].*/,
               this.getError('oldPassword', 'hasLowerCase')
             ),
-            PatternValidator(/\d/, this.getError('oldPassword', 'hasNumber')),
-            PatternValidator(
+            patternValidator(/\d/, this.getError('oldPassword', 'hasNumber')),
+            patternValidator(
               /^.{8,64}$/,
               this.getError('oldPassword', 'hasLength')
             ),
@@ -69,16 +69,16 @@ export class UserFormService extends BaseFormService {
         newPassword: [
           '',
           [
-            PatternValidator(
+            patternValidator(
               /.*[A-Z].*/,
               this.getError('newPassword', 'hasUpperCase')
             ),
-            PatternValidator(
+            patternValidator(
               /.*[a-z].*/,
               this.getError('newPassword', 'hasLowerCase')
             ),
-            PatternValidator(/\d/, this.getError('newPassword', 'hasNumber')),
-            PatternValidator(
+            patternValidator(/\d/, this.getError('newPassword', 'hasNumber')),
+            patternValidator(
               /^.{8,64}$/,
               this.getError('newPassword', 'hasLength')
             ),
@@ -89,18 +89,18 @@ export class UserFormService extends BaseFormService {
       },
       {
         validator: [
-          MustMatch('newPassword', 'confirmNewPassword'),
-          IsUniqueSelfUserName(
+          mustMatch('newPassword', 'confirmNewPassword'),
+          isUniqueSelfUserName(
             this.changeUserInfo,
             this.authDataService,
             this.handleErrors.bind(this)
           ),
-          IsUniqueSelfEmail(
+          isUniqueSelfEmail(
             this.changeUserInfo,
             this.authDataService,
             this.handleErrors.bind(this)
           ),
-          FormIsChanged(this.changeUserInfo),
+          formIsChanged(this.changeUserInfo),
         ],
       }
     );

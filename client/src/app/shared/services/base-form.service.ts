@@ -11,7 +11,7 @@ export abstract class BaseFormService {
 
   public globalError: string;
 
-  constructor(private globalErrors?: { [key: string]: string }) {}
+  public constructor(private globalErrors?: { [key: string]: string }) {}
 
   public setError(field: string, error: string): boolean {
     const result =

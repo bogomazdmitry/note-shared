@@ -1,8 +1,7 @@
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ElementRef, ViewChild } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { SignInFormService } from './signin-form.service';
 
@@ -16,7 +15,7 @@ export class SignInFormComponent implements OnInit {
   public backUrl: string | undefined;
   public buttonDisable: boolean;
 
-  constructor(
+  public constructor(
     private readonly authService: AuthService,
     private readonly activatedRouter: ActivatedRoute,
     public readonly signInFormValidator: SignInFormService,

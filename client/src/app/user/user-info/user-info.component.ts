@@ -13,7 +13,7 @@ export class UserInfoComponent implements OnInit {
   public buttonDisable: boolean;
   public globalSuccess: string;
 
-  constructor(
+  public constructor(
     private readonly userService: UserService,
     private readonly userDataService: UserDataService,
     public userFormValidation: UserFormService

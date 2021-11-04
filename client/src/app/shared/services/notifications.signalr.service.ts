@@ -1,5 +1,5 @@
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { hubMethodSubscription, hubsRoutes } from '../constants/url.constants';
 import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
@@ -10,13 +10,11 @@ import { NotificationInfo } from '../models/notification-info.model';
 export class NotificationsSignalRService {
   private hubConnection: signalR.HubConnection;
 
-  constructor(private readonly authService: AuthService) {}
+  public constructor(private readonly authService: AuthService) {}
 
   public startConnection(): void {
     const options: signalR.IHttpConnectionOptions = {
-      accessTokenFactory: () => {
-        return this.authService.getAccessToken() ?? '';
-      },
+      accessTokenFactory: () => this.authService.getAccessToken() ?? '',
     };
 
     this.hubConnection = new signalR.HubConnectionBuilder()

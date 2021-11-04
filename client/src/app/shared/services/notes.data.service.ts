@@ -2,14 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { actionRoutes, controllerRoutes } from '../constants/url.constants';
-import { NoteDesign } from '../models/note-design.model';
 import { Note } from '../models/note.model';
 import { NoteOrder } from '../models/notes-order.model';
 import { BaseDataService } from './base.data.service';
 
 @Injectable({ providedIn: 'root' })
 export class NotesDataService extends BaseDataService {
-  constructor(protected readonly httpClient: HttpClient) {
+  public constructor(protected readonly httpClient: HttpClient) {
     super(httpClient, controllerRoutes.notes);
   }
 

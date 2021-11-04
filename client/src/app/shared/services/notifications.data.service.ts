@@ -9,7 +9,7 @@ import { NotificationInfo } from '../models/notification-info.model';
   providedIn: 'root',
 })
 export class NotificationsDataService extends BaseDataService {
-  constructor(protected readonly httpClient: HttpClient) {
+  public constructor(protected readonly httpClient: HttpClient) {
     super(httpClient, controllerRoutes.notifications);
   }
 

@@ -2,8 +2,6 @@ import { MuuriService } from './../shared/services/muuri.service';
 import {
   Component,
   ElementRef,
-  ViewChildren,
-  OnInit,
   AfterViewInit,
   ViewChild,
   OnDestroy,
@@ -20,7 +18,7 @@ export class NotesComponent implements AfterViewInit, OnDestroy {
   @ViewChild('gridElement', { read: ElementRef })
   public gridElement: ElementRef;
 
-  constructor(
+  public constructor(
     public readonly noteService: NoteService,
     public readonly muuriService: MuuriService
   ) {}

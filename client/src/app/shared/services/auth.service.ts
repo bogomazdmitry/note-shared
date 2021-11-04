@@ -1,7 +1,6 @@
 import { AuthDataService } from 'src/app/shared/services/auth.data.service';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { fieldLocalStorage } from '../constants/local-storage.constants';
 import { SignInModel } from '../models/sigin.model';
@@ -13,7 +12,7 @@ import { SignUpModel } from '../models/signup.model';
 export class AuthService {
   private jwtHelperService: JwtHelperService;
 
-  constructor(
+  public constructor(
     private readonly router: Router,
     private readonly authDataService: AuthDataService,
     private readonly userService: UserService

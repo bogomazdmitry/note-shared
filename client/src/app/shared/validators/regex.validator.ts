@@ -1,10 +1,9 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-export function PatternValidator(
+export const patternValidator = (
   regexOrString: RegExp | string,
   error: ValidationErrors
-): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } | null => {
+): ValidatorFn => (control: AbstractControl): { [key: string]: any } | null => {
     if (!control.value) {
       return null;
     }
@@ -16,4 +15,3 @@ export function PatternValidator(
     const valid = regex.test(control.value);
     return valid ? null : error;
   };
-}

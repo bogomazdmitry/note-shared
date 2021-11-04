@@ -8,7 +8,7 @@ import { BaseDataService } from './base.data.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserDataService extends BaseDataService {
-  constructor(protected readonly httpClient: HttpClient) {
+  public constructor(protected readonly httpClient: HttpClient) {
     super(httpClient, controllerRoutes.user);
   }
 
