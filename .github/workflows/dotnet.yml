@@ -1,5 +1,9 @@
 name: .NET
 
+defaults:
+  run:
+    working-directory: server
+    
 on:
   push:
     branches: [ dotnet/project/NoteShared/SHULTSINT-177 ]
@@ -18,14 +22,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: |
-        cd server
-        dotnet restore
+      run: dotnet restore
     - name: Build
-      run: |
-        cd server
-        dotnet build --no-restore
+      run: dotnet build --no-restore
     - name: Test
-      run: |
-        cd server
-        dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal
