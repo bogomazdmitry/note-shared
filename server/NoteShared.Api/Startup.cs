@@ -65,7 +65,7 @@ namespace Api
 
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(connectionString));
 
             services.AddIdentity(Configuration);
 
@@ -142,6 +142,19 @@ namespace Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+                if (env.IsDevelopment())
+                {
+                    dbContext.Database.EnsureCreated();
+                }
+                else
+                {
+                    dbContext.Database.Migrate();
+                }
+            }
 
             app.UseIdentityServer();
             app.UseAuthorization();
