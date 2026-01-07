@@ -2,11 +2,13 @@
 FROM node:14-alpine AS build
 WORKDIR /app
 
+ENV NODE_OPTIONS=--max_old_space_size=2048
+
 COPY client/package.json client/package-lock.json ./
 RUN npm ci
 
 COPY client ./
-RUN npm run build -- --configuration production
+RUN npm run build -- --configuration production --source-map=false --progress=false
 
 # Runtime stage
 FROM nginx:1.25-alpine AS runtime
