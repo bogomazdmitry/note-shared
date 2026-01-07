@@ -1,0 +1,16 @@
+.git
+**/.DS_Store
+
+# node
+**/node_modules
+**/dist
+**/npm-debug.log
+
+# dotnet
+**/bin
+**/obj
+
+# misc
+**/*.user
+**/*.suo
+**/*.cache
