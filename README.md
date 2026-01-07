@@ -17,3 +17,7 @@ It is Google Keep copy
 - Dotnet: EF, SignalR
 - Angular: karma&jasmine, angular material
 - SQL Server
+
+## URL:
+
+https://note-shared.dayl.work.gd/

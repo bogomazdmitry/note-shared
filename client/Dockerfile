@@ -11,9 +11,6 @@ RUN npm run build -- --configuration production
 # Runtime stage
 FROM nginx:1.25-alpine AS runtime
 
-# Nginx config is kept in the repo under /nginx
-COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
-
 # Angular build output
 COPY --from=build /app/dist/client /usr/share/nginx/html
 
