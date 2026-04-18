@@ -98,7 +98,22 @@ systemctl list-timers | grep certbot
 | Angular web | 80 | 127.0.0.1:8088 |
 | .NET API | 5000 | 127.0.0.1:15000 |
 | PostgreSQL | 5432 | 0.0.0.0:55433 |
+## Swap
 
+Server has 4GB swap (`/swapfile`, swappiness=10).
+
+```bash
+free -h | grep Swap
+swapon --show
+```
+
+If missing:
+```bash
+fallocate -l 4G /swapfile && chmod 600 /swapfile
+mkswap /swapfile && swapon /swapfile
+echo '/swapfile none swap sw 0 0' >> /etc/fstab
+sysctl vm.swappiness=10 && echo 'vm.swappiness=10' >> /etc/sysctl.conf
+```
 ## Environment
 
 `.env` at `/opt/note-shared/.env` (chmod 600)

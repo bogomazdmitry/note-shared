@@ -67,6 +67,15 @@ Docker Compose (/opt/note-shared/docker-compose.yml):
 - Cert: `/etc/letsencrypt/live/note.taskcal.online/fullchain.pem`
 - Key: `/etc/letsencrypt/live/note.taskcal.online/privkey.pem`
 - Nginx config: `/etc/nginx/sites-available/note.taskcal.online`
+- Nginx config source: `deploy/nginx/note.taskcal.online.conf`
+
+### Deploy nginx config
+
+```bash
+ssh ... 'cp /opt/note-shared/deploy/nginx/note.taskcal.online.conf /etc/nginx/sites-available/note.taskcal.online'
+ssh ... 'ln -sf /etc/nginx/sites-available/note.taskcal.online /etc/nginx/sites-enabled/note.taskcal.online'
+ssh ... 'nginx -t && systemctl reload nginx'
+```
 
 ## Deploy Procedure
 
