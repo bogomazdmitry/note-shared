@@ -1,45 +1,51 @@
 services:
   postgres:
     image: postgres:16-alpine
+    container_name: noteshared-postgres
     environment:
       POSTGRES_DB: note_shared
-      POSTGRES_USER: notes
-      POSTGRES_PASSWORD: notes
+      POSTGRES_USER: ${POSTGRES_USER:-notes}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-notes}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "${POSTGRES_EXTERNAL_PORT:-55433}:5432" # non-standard external port
+      - "${POSTGRES_EXTERNAL_PORT:-55433}:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U notes -d note_shared"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-notes} -d note_shared"]
       interval: 5s
       timeout: 5s
       retries: 20
+    restart: unless-stopped
 
   api:
     build:
       context: ./server
       dockerfile: Dockerfile
+    container_name: noteshared-api
     environment:
-      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Production}
       ASPNETCORE_URLS: http://+:5000
       DisableHttpsRedirection: "true"
-      ClientUrl: ${CLIENT_URL:-https://note-shared.dayl.work.gd}
-      ServerUrl: ${SERVER_URL:-https://note-shared.dayl.work.gd}
-      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=note_shared;Username=notes;Password=notes
+      ClientUrl: ${CLIENT_URL:-https://note.taskcal.online}
+      ServerUrl: ${SERVER_URL:-https://note.taskcal.online}
+      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=note_shared;Username=${POSTGRES_USER:-notes};Password=${POSTGRES_PASSWORD:-notes}
     depends_on:
       postgres:
         condition: service_healthy
     ports:
       - "127.0.0.1:${API_HTTP_PORT:-15000}:5000"
+    restart: unless-stopped
 
   web:
     build:
       context: .
       dockerfile: client/Dockerfile
+    container_name: noteshared-web
     depends_on:
       - api
     ports:
-      - "127.0.0.1:8088:80"
+      - "127.0.0.1:${WEB_PORT:-8088}:80"
+    restart: unless-stopped
 
 volumes:
   postgres_data:
