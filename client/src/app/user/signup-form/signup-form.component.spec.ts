@@ -20,6 +20,7 @@ describe('RegistrFormComponent', () => {
             userName: new FormControl(''),
             email: new FormControl(''),
             password: new FormControl(''),
+            confirmPassword: new FormControl(''),
           }),
           globalError: '',
           getFormField: () => new FormControl(''),
