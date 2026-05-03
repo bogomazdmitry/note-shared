@@ -24,6 +24,7 @@ describe('RegistrFormComponent', () => {
           }),
           globalError: '',
           getFormField: () => new FormControl(''),
+          hasError: () => false,
           handleErrors: () => {},
         } },
       ],
